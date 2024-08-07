@@ -1,3 +1,72 @@
 body{
-    background: gray;
+    background: rgb(98, 2, 223);
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: left;
+    align-items: top;
+    /* Rotate the entire logo to make it inclined to the left */
+    transform: rotate(-15deg); /* Adjust angle for inclination */
+    transform-origin: top; /* Adjust origin for rotation if needed */
+}
+
+.wearper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Animation to make the logo components move */
+    animation: ping_pong 2s infinite;
+}
+
+.cyrcle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.5);
+}
+.cyrcle::before {
+    content: "";
+    position: absolute;
+    width: 60px; /* Same as the circle's diameter */
+    height: 30px; /* Half the circle's height for a semicircle */
+    background-color: red; /* Line color */
+    border-radius: 0 0 30px 30px; /* Semicircular shape */
+    top: 68%;
+    left: 32%;
+    transform: translate(-50%, -50%) rotate(45deg); /* Center the semicircle */
+}
+.stick {
+    width: 10px;
+    height: 40%;
+    background-color: #000;
+    position: absolute;
+      align-items: center;
+
+    top: 60%;
+    left: 0%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.5);
+    z-index: -10;
+}
+
+@keyframes ping_pong {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(50px);
+    }
+    100% {
+        transform: translateX(0);
+    }
 }
