@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Champion</title>
+    <link rel="stylesheet" href="{% static 'css/room.css' %}">
+</head>
+<body>
+    <div class="container" id="room-box">
+        <h1>Tournament Rooms</h1>
+        {% for rm in rooms %}
+            <div class="user">
+                    <!-- <img src="user2.jpg" alt="User 2"> -->
+                    <input type="hidden" name="tournament_id" id="{{rm.name}}" value="{{rm.name}}">
+                    <h2>welcome to {{rm.name}}</h2>
+                    <button type="submit" class="join" id="join" data-room-name="{{rm.name}}">join</button>
+                     <!-- <p>{{trn.count}}</p> -->
+            </div>
+        {% endfor %}
+
+        <!-- <div class="champion">
+            <h1>Champion</h1>
+            <p>Congratulations to User X for winning the tournament!</p>
+        </div> -->
+    </div>
+    <div class="create_room">
+            <input type="text" name="room_name" id="room_name" placeholder="Room Name">
+            <button type="submit" class="create" id="create">Create Room</button>
+            <!-- <label for="create" id="Created" style="display: block; height: 30px; width: 80px; background-color: black; cursor: pointer;"></label> -->
+    </div>
+    <!-- <script src="{% static 'js/rooms.js' %}"></script> -->
+</body>
+</html>

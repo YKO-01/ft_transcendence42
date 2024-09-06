@@ -1,0 +1,53 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    color: #333;
+}
+.user {
+    margin: 20px 0;
+    padding: 15px;
+    background: #eee;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+.champion {
+    margin: 20px 0;
+    padding: 20px;
+    background: #4caf50;
+    color: #fff;
+    border-radius: 8px;
+    border: 1px solid #388e3c;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.user img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+.user h2 {
+    margin: 10px 0;
+    font-size: 1.2em;
+}
+
+.class_room #create {
+    display: none;
+}
+
+#Created {
+    width: 50px;
+    height: 50px;
+}
