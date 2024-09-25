@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="styles.css">
+	<title>ft_transcendance - Sign up</title>
+</head>
+<body>
+	<div id="root">
+		<h1 class="ping-pong">PING PONG ...</h1>
+		<img src="./assets/signup-logo.svg" class="signup-logo" alt="signup logo">
+		<div class="logo-container">
+			<a href="../signin/signin.html"><img src="./assets/logo.svg" class="logo" alt="ping pong logo"></a>
+		</div>
+		<form action="#">
+			<div class="light"></div>
+			<p style="color: red;" id="msg"></p>
+			<input type="text" name="username" id="username" placeholder="Username">
+			<input type="email" name="email" id="email" placeholder="Email">
+			<input type="password" name="password" id="password" placeholder="Password">
+			<input type="password" name="password1" id="confirm-password" placeholder="Confirm password">
+			<div class="submit-btn">
+				<button type="submit">
+					<p>Sign up</p>
+					<img src="assets/signin-ico.svg" alt="">
+				</button>
+				
+			</div>
+			<p class="signup-cta">Already have an account?<a href="../signin/signin.html">Sign in</a></p>
+		</form>
+	</div>
+</body>
+<script>
+	const form = document.querySelector('form');
+	const btn = document.querySelector('button');
+	btn.addEventListener('click', (event) => {
+		event.preventDefault();
+		let data = new FormData(form);
+		// for (let [key, value] of data.entries()) {
+		// 	console.log(key, value);
+		// }
+		fetch('http://127.0.0.1:8000/api/register/', {
+            method: 'POST',
+            body: data
+        })
+		.then(response => {
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
+			return response.json();
+		})
+		.then(result => {
+			document.getElementById('msg').innerHTML = result.message;
+			console.log(result);
+		})
+		.catch(error => {
+			console.error('Error:', error);
+		});
+	})
+</script>
+</html>

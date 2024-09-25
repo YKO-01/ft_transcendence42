@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="styles.css" />
+        <title>ft_transcendance - Dashboard</title>
+    </head>
+    <body>
+        <div id="root">
+            <div class="container">
+				<div class="container-overlay"></div>
+                <div class="main">
+                    <div class="modes">
+                        <div class="header">
+                            <a href="signin.html"
+                                ><img
+                                    src="./assets/logo.svg"
+                                    class="logo"
+                                    alt="ping pong logo"
+                            /></a>
+                            <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M15 18H9C9 18.7956 9.31607 19.5587 9.87868 20.1213C10.4413 20.6839 11.2044 21 12 21C12.7956 21 13.5587 20.6839 14.1213 20.1213C14.6839 19.5587 15 18.7956 15 18Z"
+                                    stroke="white"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                                <path
+                                    d="M19.38 14.38C19.5768 14.577 19.7329 14.8109 19.8392 15.0683C19.9456 15.3257 20.0002 15.6015 20 15.88C20 16.4423 19.7766 16.9815 19.3791 17.3791C18.9815 17.7766 18.4423 18 17.88 18H6.12C5.55774 18 5.01851 17.7766 4.62093 17.3791C4.22336 16.9815 4 16.4423 4 15.88C3.99976 15.6015 4.05438 15.3257 4.16077 15.0683C4.26715 14.8109 4.4232 14.577 4.62 14.38L6 13V9C6 7.4087 6.63214 5.88258 7.75736 4.75736C8.88258 3.63214 10.4087 3 12 3C13.5913 3 15.1174 3.63214 16.2426 4.75736C17.3679 5.88258 18 7.4087 18 9V13L19.38 14.38Z"
+                                    stroke="white"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </div>
+                        <div class="game-modes">
+                            <div class="title">
+                                <h1>Game Modes</h1>
+                                <svg
+                                    width="32"
+                                    height="32"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M15.4695 11.2929C15.0789 10.9024 14.4458 10.9024 14.0553 11.2929C13.6647 11.6834 13.6647 12.3166 14.0553 12.7071C14.4458 13.0976 15.0789 13.0976 15.4695 12.7071C15.86 12.3166 15.86 11.6834 15.4695 11.2929Z"
+                                        fill="white"
+                                    />
+                                    <path
+                                        d="M16.1765 9.17156C16.567 8.78103 17.2002 8.78103 17.5907 9.17156C17.9812 9.56208 17.9812 10.1952 17.5907 10.5858C17.2002 10.9763 16.567 10.9763 16.1765 10.5858C15.786 10.1952 15.786 9.56208 16.1765 9.17156Z"
+                                        fill="white"
+                                    />
+                                    <path
+                                        d="M19.7121 11.2929C19.3216 10.9024 18.6885 10.9024 18.2979 11.2929C17.9074 11.6834 17.9074 12.3166 18.2979 12.7071C18.6885 13.0976 19.3216 13.0976 19.7121 12.7071C20.1027 12.3166 20.1027 11.6834 19.7121 11.2929Z"
+                                        fill="white"
+                                    />
+                                    <path
+                                        d="M16.1765 13.4142C16.567 13.0237 17.2002 13.0237 17.5907 13.4142C17.9812 13.8048 17.9812 14.4379 17.5907 14.8284C17.2002 15.219 16.567 15.219 16.1765 14.8284C15.786 14.4379 15.786 13.8048 16.1765 13.4142Z"
+                                        fill="white"
+                                    />
+                                    <path
+                                        d="M6 13H4V11H6V9H8V11H10V13H8V15H6V13Z"
+                                        fill="white"
+                                    />
+                                    <path
+                                        fill-rule="evenodd"
+                                        clip-rule="evenodd"
+                                        d="M7 5C3.13401 5 0 8.13401 0 12C0 15.866 3.13401 19 7 19H17C20.866 19 24 15.866 24 12C24 8.13401 20.866 5 17 5H7ZM17 7H7C4.23858 7 2 9.23858 2 12C2 14.7614 4.23858 17 7 17H17C19.7614 17 22 14.7614 22 12C22 9.23858 19.7614 7 17 7Z"
+                                        fill="white"
+                                    />
+                                </svg>
+                            </div>
+                            <div class="modes-cards">
+                                <div class="regular">
+                                    <div class="mode-card cpu">
+                                        <p>vs <span>CPU</span></p>
+										<svg width="36" height="36" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path fill-rule="evenodd" clip-rule="evenodd" d="M6.38281 5.00485L8.13181 4.06885L20.1318 12.0683V13.9403L8.13181 21.9413L6.38281 21.0053V5.00485ZM8.63281 7.10635V18.9023L17.4798 13.0043L8.63281 7.10635Z" fill="white"/>
+										</svg>											
+                                    </div>
+                                    <div class="mode-card player">
+                                        <p><span>1</span> vs <span>1</span></p>
+										<svg width="36" height="36" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path fill-rule="evenodd" clip-rule="evenodd" d="M6.38281 5.00485L8.13181 4.06885L20.1318 12.0683V13.9403L8.13181 21.9413L6.38281 21.0053V5.00485ZM8.63281 7.10635V18.9023L17.4798 13.0043L8.63281 7.10635Z" fill="white"/>
+											</svg>											
+                                    </div>
+                                    <div class="mode-card ai">
+                                        <p>vs <span>Ai</span></p>
+										<svg width="36" height="36" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path fill-rule="evenodd" clip-rule="evenodd" d="M6.38281 5.00485L8.13181 4.06885L20.1318 12.0683V13.9403L8.13181 21.9413L6.38281 21.0053V5.00485ZM8.63281 7.10635V18.9023L17.4798 13.0043L8.63281 7.10635Z" fill="white"/>
+											</svg>											
+                                    </div>
+                                </div>
+                                <div class="tournament-mode">
+                                    <div class="tournament-mode-card">
+										<div class="tournament-mode-card">
+											<p>Tournament</p>
+											<svg class="tournament-ico" width="36" height="36" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M7.33337 25.1617V23.1617H9.33337V19.8284H7.33337V17.8284H11.3334V20.495H12.6667V12.495H11.3334V15.1617L7.33337 15.1617V13.1617H9.33337V9.82837H7.33337V7.82837H11.3334V10.495H14.6667V15.1617H17.3334V10.495H20.6667V7.82837H24.6667V9.82837H22.6667V13.1617H24.6667V15.1617H20.6667V12.495H19.3334V20.495H20.6667V17.8284L24.6667 17.8283V19.8284H22.6667V23.1617H24.6667V25.1617H20.6667V22.495H17.3334V17.8284H14.6667V22.495H11.3334V25.1617H7.33337Z" fill="#00B882"/>
+											</svg>
+										</div>
+																				
+                                        <div class="tournament-text">
+                                            <h1>
+                                                Prove your ping pong prowess in
+                                                thrilling tournaments!
+                                            </h1>
+                                            <svg
+                                                width="80"
+                                                height="80"
+                                                viewBox="0 0 64 64"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <g
+                                                    clip-path="url(#clip0_173_2071)"
+                                                >
+                                                    <path
+                                                        d="M44.9751 53.6626L32 49.9126L19.0249 53.6626C18.9125 53.8876 18.875 54.1126 18.875 54.3751V62.1251H45.125V54.3751C45.125 54.1126 45.0875 53.8876 44.9751 53.6626Z"
+                                                        fill="#646D73"
+                                                    />
+                                                    <path
+                                                        d="M45.125 62.1251V54.3751C45.125 54.1126 45.0875 53.8876 44.9751 53.6626L32 49.9126V62.1251H45.125Z"
+                                                        fill="#474F54"
+                                                    />
+                                                    <path
+                                                        d="M62.125 3.75H52.5444C52.5609 3.11663 52.625 2.52 52.625 1.875C52.625 0.824875 51.8001 0 50.75 0H13.25C12.1999 0 11.375 0.824875 11.375 1.875C11.375 2.52 11.4391 3.11663 11.4554 3.75H1.875C0.838625 3.75 0 4.58862 0 5.625V10.3748C0 20.844 8.3865 29.3486 18.7216 29.8961C20.8748 32.8606 23.4301 35.0606 26.3375 36.3C25.8875 45.4125 20.675 51.75 19.4376 53.0626C19.25 53.2125 19.1 53.4375 19.025 53.6625H44.9751C44.9 53.4375 44.7501 53.2125 44.5625 53.0626C43.2875 51.75 38.1125 45.45 37.6625 36.3C40.5705 35.0604 43.1412 32.8599 45.2961 29.8943C55.6224 29.3379 64 20.8381 64 10.3748V5.625C64 4.58862 63.1614 3.75 62.125 3.75ZM3.75 10.3748V7.5H11.6163C12.1029 13.6973 13.4467 20.2607 16.2712 25.8385C9.19125 24.2441 3.75 17.9304 3.75 10.3748ZM60.25 10.3748C60.25 17.9265 54.8136 24.2373 47.7389 25.8353C50.541 20.2576 51.8924 13.7576 52.3838 7.5H60.25V10.3748Z"
+                                                        fill="#FED843"
+                                                    />
+                                                    <path
+                                                        d="M62.125 3.75H52.5444C52.5609 3.11663 52.625 2.52 52.625 1.875C52.625 0.824875 51.8001 0 50.75 0H32V53.6625H44.9751C44.9 53.4375 44.7501 53.2125 44.5625 53.0626C43.2875 51.75 38.1125 45.45 37.6625 36.3C40.5705 35.0604 43.1412 32.8599 45.2961 29.8943C55.6224 29.3379 64 20.8381 64 10.3748V5.625C64 4.58862 63.1614 3.75 62.125 3.75ZM60.25 10.3748C60.25 17.9265 54.8136 24.2373 47.7389 25.8353C50.5413 20.2576 51.8926 13.7576 52.3838 7.5H60.25V10.3748Z"
+                                                        fill="#FABE2C"
+                                                    />
+                                                    <path
+                                                        d="M34.9919 23.8494L31.9999 22.2948L29.0079 23.8494C28.3817 24.1717 27.6163 24.1186 27.0414 23.7029C26.7597 23.4985 26.5405 23.2195 26.4085 22.8973C26.2766 22.5752 26.237 22.2226 26.2943 21.8792L26.8437 18.5484L24.4451 16.1809C23.9229 15.6719 23.7633 14.9173 23.9763 14.2657C24.0844 13.9346 24.2824 13.6401 24.5482 13.4151C24.814 13.1901 25.1371 13.0433 25.4814 12.9913L28.8139 12.4896L30.3227 9.47381C30.9599 8.20306 33.0399 8.20306 33.6772 9.47381L35.1859 12.4896L38.5184 12.9913C38.8628 13.0434 39.1859 13.1901 39.4516 13.4152C39.7174 13.6402 39.9154 13.9347 40.0236 14.2657C40.1318 14.5969 40.1453 14.9517 40.0624 15.2902C39.9796 15.6286 39.8038 15.9372 39.5548 16.1809L37.1562 18.5484L37.7056 21.8792C37.7629 22.2226 37.7234 22.5752 37.5914 22.8973C37.4594 23.2195 37.2402 23.4985 36.9584 23.7029C36.3873 24.1168 35.6233 24.1779 34.9919 23.8494Z"
+                                                        fill="#FABE2C"
+                                                    />
+                                                    <path
+                                                        d="M34.992 23.8495C35.6235 24.178 36.3875 24.1169 36.9585 23.703C37.2403 23.4985 37.4594 23.2195 37.5914 22.8974C37.7234 22.5752 37.7629 22.2226 37.7056 21.8793L37.1562 18.5485L39.5549 16.181C39.8038 15.9372 39.9796 15.6287 40.0625 15.2902C40.1453 14.9518 40.1318 14.5969 40.0236 14.2658C39.9155 13.9347 39.7175 13.6402 39.4518 13.4152C39.186 13.1901 38.8629 13.0434 38.5185 12.9914L35.186 12.4896L33.6772 9.47388C33.3586 8.8385 32.6794 8.52075 32 8.52075V22.2949L34.992 23.8495Z"
+                                                        fill="#FF9100"
+                                                    />
+                                                    <path
+                                                        d="M47 64H17C15.9636 64 15.125 63.1614 15.125 62.125C15.125 61.0886 15.9636 60.25 17 60.25H47C48.0364 60.25 48.875 61.0886 48.875 62.125C48.875 63.1614 48.0364 64 47 64Z"
+                                                        fill="#474F54"
+                                                    />
+                                                    <path
+                                                        d="M47 60.25H32V64H47C48.0364 64 48.875 63.1614 48.875 62.125C48.875 61.0886 48.0364 60.25 47 60.25Z"
+                                                        fill="#32393F"
+                                                    />
+                                                </g>
+                                                <defs>
+                                                    <clipPath
+                                                        id="clip0_173_2071"
+                                                    >
+                                                        <rect
+                                                            width="64"
+                                                            height="64"
+                                                            fill="white"
+                                                        />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <button>Start</button>
+                                </div>
+                                <div></div>
+                            </div>
+                        </div>
+                        <div class="tournaments">
+                            <h1>Tournaments</h1>
+                            <table class="table-rooms">
+                                <tr class="table-head">
+                                    <th>Name</th>
+                                    <th>Time</th>
+                                    <th>Players</th>
+                                    <th>Status</th>
+                                </tr>
+                                <!-- <tr>
+                                    <td><span class="room-number">1</span> Tournoi d l3robiya hh</td>
+                                    <td class="time">
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<g clip-path="url(#clip0_298_84)">
+										<path d="M8.00004 14.6666C11.6819 14.6666 14.6667 11.6818 14.6667 7.99992C14.6667 4.31802 11.6819 1.33325 8.00004 1.33325C4.31814 1.33325 1.33337 4.31802 1.33337 7.99992C1.33337 11.6818 4.31814 14.6666 8.00004 14.6666Z" stroke="#CECECE" stroke-linecap="round" stroke-linejoin="round"/>
+										<path d="M8 4V8L10.6667 9.33333" stroke="#CECECE" stroke-linecap="round" stroke-linejoin="round"/>
+										</g>
+										<defs>
+										<clipPath id="clip0_298_84">
+										<rect width="16" height="16" fill="white"/>
+										</clipPath>
+										</defs>
+										</svg>
+										September 2, 2024 7:00 PM
+									</td>
+                                    <td>
+										<div class="players">
+											<svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M13.3333 14V12.6667C13.3333 11.9594 13.0523 11.2811 12.5522 10.781C12.0521 10.281 11.3739 10 10.6666 10H5.33329C4.62605 10 3.94777 10.281 3.44767 10.781C2.94758 11.2811 2.66663 11.9594 2.66663 12.6667V14" stroke="#E2E2E2" stroke-linecap="round" stroke-linejoin="round"/>
+												<path d="M8.00004 7.33333C9.4728 7.33333 10.6667 6.13943 10.6667 4.66667C10.6667 3.19391 9.4728 2 8.00004 2C6.52728 2 5.33337 3.19391 5.33337 4.66667C5.33337 6.13943 6.52728 7.33333 8.00004 7.33333Z" stroke="#E2E2E2" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+											<span>4</span>	
+										</div>
+																				
+									</td>
+                                    <td>
+										<div class="playing">
+											<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+											<span>Playing</span>
+										</div>
+									</td>
+                                </tr>
+								<tr>
+                                    <td><span class="room-number">2</span> Tournoi d lmanagil hh</td>
+                                    <td class="time">
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<g clip-path="url(#clip0_298_84)">
+										<path d="M8.00004 14.6666C11.6819 14.6666 14.6667 11.6818 14.6667 7.99992C14.6667 4.31802 11.6819 1.33325 8.00004 1.33325C4.31814 1.33325 1.33337 4.31802 1.33337 7.99992C1.33337 11.6818 4.31814 14.6666 8.00004 14.6666Z" stroke="#CECECE" stroke-linecap="round" stroke-linejoin="round"/>
+										<path d="M8 4V8L10.6667 9.33333" stroke="#CECECE" stroke-linecap="round" stroke-linejoin="round"/>
+										</g>
+										<defs>
+										<clipPath id="clip0_298_84">
+										<rect width="16" height="16" fill="white"/>
+										</clipPath>
+										</defs>
+										</svg>
+										September 2, 2024 7:00 PM
+									</td>
+                                    <td>
+										<div class="players">
+											<svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M13.3333 14V12.6667C13.3333 11.9594 13.0523 11.2811 12.5522 10.781C12.0521 10.281 11.3739 10 10.6666 10H5.33329C4.62605 10 3.94777 10.281 3.44767 10.781C2.94758 11.2811 2.66663 11.9594 2.66663 12.6667V14" stroke="#E2E2E2" stroke-linecap="round" stroke-linejoin="round"/>
+												<path d="M8.00004 7.33333C9.4728 7.33333 10.6667 6.13943 10.6667 4.66667C10.6667 3.19391 9.4728 2 8.00004 2C6.52728 2 5.33337 3.19391 5.33337 4.66667C5.33337 6.13943 6.52728 7.33333 8.00004 7.33333Z" stroke="#E2E2E2" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+											<span>4</span>	
+										</div>
+																				
+									</td>
+                                    <td>
+										<div class="playing">
+										<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+										<span>Playing</span>
+									</div></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="room-number">3</span> Tournoi d chlo7 hh zdighnni ghnni azul fllawn</td>
+                                    <td class="time">
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<g clip-path="url(#clip0_298_84)">
+										<path d="M8.00004 14.6666C11.6819 14.6666 14.6667 11.6818 14.6667 7.99992C14.6667 4.31802 11.6819 1.33325 8.00004 1.33325C4.31814 1.33325 1.33337 4.31802 1.33337 7.99992C1.33337 11.6818 4.31814 14.6666 8.00004 14.6666Z" stroke="#CECECE" stroke-linecap="round" stroke-linejoin="round"/>
+										<path d="M8 4V8L10.6667 9.33333" stroke="#CECECE" stroke-linecap="round" stroke-linejoin="round"/>
+										</g>
+										<defs>
+										<clipPath id="clip0_298_84">
+										<rect width="16" height="16" fill="white"/>
+										</clipPath>
+										</defs>
+										</svg>
+										September 2, 2024 7:00 PM
+									</td>
+                                    <td>
+										<div class="players">
+											<svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M13.3333 14V12.6667C13.3333 11.9594 13.0523 11.2811 12.5522 10.781C12.0521 10.281 11.3739 10 10.6666 10H5.33329C4.62605 10 3.94777 10.281 3.44767 10.781C2.94758 11.2811 2.66663 11.9594 2.66663 12.6667V14" stroke="#E2E2E2" stroke-linecap="round" stroke-linejoin="round"/>
+												<path d="M8.00004 7.33333C9.4728 7.33333 10.6667 6.13943 10.6667 4.66667C10.6667 3.19391 9.4728 2 8.00004 2C6.52728 2 5.33337 3.19391 5.33337 4.66667C5.33337 6.13943 6.52728 7.33333 8.00004 7.33333Z" stroke="#E2E2E2" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+											<span>3</span>	
+										</div>
+																				
+									</td>
+                                    <td><div class="register-btn">
+										<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+										<span>Register</span>
+									</div></td>
+                                </tr> -->
+                            </table>
+                        </div>
+                    </div>
+                    <div id="history">
+						<div class="history-header">
+							<div class="title">
+								<h1>History</h1>
+								<svg width="32" height="32" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M13.507 12.324C14.4635 11.1055 14.9887 9.60415 15.0005 8.05513C15.0122 6.50612 14.5098 4.99695 13.572 3.76404C12.8801 2.85379 11.9758 2.12688 10.9381 1.64684C9.90039 1.16681 8.7609 0.948263 7.61923 1.01032C6.47756 1.07237 5.36847 1.41314 4.38891 2.00282C3.40935 2.59251 2.58915 3.41316 2 4.39304V2.00004H1V5.50004L1.5 6.00004H5V5.00004H2.811C3.47904 3.84515 4.51248 2.94548 5.74837 2.44289C6.98427 1.9403 8.3523 1.86338 9.63674 2.22426C10.9212 2.58515 12.049 3.36331 12.8422 4.43603C13.6355 5.50875 14.0492 6.81501 14.018 8.14883C13.9868 9.48264 13.5125 10.7681 12.6699 11.8026C11.8273 12.837 10.6644 13.5616 9.36446 13.862C8.06454 14.1624 6.7016 14.0216 5.49057 13.4618C4.27953 12.9019 3.28929 11.9549 2.676 10.77L1.789 11.232C2.32913 12.271 3.12124 13.1578 4.09282 13.8113C5.06439 14.4649 6.18439 14.8642 7.35027 14.9729C8.51615 15.0815 9.69066 14.896 10.7663 14.4332C11.8419 13.9705 12.7842 13.2453 13.507 12.324ZM10.146 11.354L10.854 10.647L8 7.79204V4.00004H7V8.00004L7.146 8.35404L10.146 11.354Z" fill="white"/>
+								</svg>									
+							</div>
+							<p>View all</p>
+						</div>
+						<!-- <input type="date" id="date" name="date"> -->
+						<div class="stats">
+							<div class="today">
+								<h2>Today</h2>
+								<div>
+									<div class="game-result">
+										<div class="avatar">
+
+										</div>
+										<div class="result">
+											<p class="winning-side">10</p>
+											<span>-</span>
+											<p class="losing-side">9</p>
+										</div>
+										<div class="status win">
+											<p>Win</p>
+										</div>
+									</div>
+									<div class="game-result">
+										<div class="avatar">
+
+										</div>
+										<div class="result">
+											<p class="losing-side">4</p>
+											<span>-</span>
+											<p class="winning-side">10</p>
+										</div>
+										<div class="status loss">
+											<p>Loss</p>
+										</div>
+									</div>
+									<div class="game-result">
+										<div class="avatar">
+
+										</div>
+										<div class="result">
+											<p class="losing-side">3</p>
+											<span>-</span>
+											<p class="winning-side">12</p>
+										</div>
+										<div class="status win">
+											<p>Loss</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="yesterday">
+								<h2>Yesterday</h2>
+								<div>
+									<div class="game-result">
+										<div class="avatar">
+
+										</div>
+										<div class="result">
+											<p class="winning-side">10</p>
+											<span>-</span>
+											<p class="losing-side">9</p>
+										</div>
+										<div class="status win">
+											<p>Win</p>
+										</div>
+									</div>
+									<div class="game-result">
+										<div class="avatar">
+
+										</div>
+										<div class="result">
+											<p class="losing-side">4</p>
+											<span>-</span>
+											<p class="winning-side">10</p>
+										</div>
+										<div class="status loss">
+											<p>Loss</p>
+										</div>
+									</div>
+									<div class="game-result">
+										<div class="avatar">
+
+										</div>
+										<div class="result">
+											<p class="losing-side">3</p>
+											<span>-</span>
+											<p class="winning-side">12</p>
+										</div>
+										<div class="status win">
+											<p>Loss</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="custom">
+								<h2>August 1, 2024</h2>
+								<div>
+									<div class="game-result">
+										<div class="avatar">
+
+										</div>
+										<div class="result">
+											<p class="winning-side">10</p>
+											<span>-</span>
+											<p class="losing-side">9</p>
+										</div>
+										<div class="status win">
+											<p>Win</p>
+										</div>
+									</div>
+									<div class="game-result">
+										<div class="avatar">
+
+										</div>
+										<div class="result">
+											<p class="losing-side">4</p>
+											<span>-</span>
+											<p class="winning-side">10</p>
+										</div>
+										<div class="status loss">
+											<p>Loss</p>
+										</div>
+									</div>
+									<div class="game-result">
+										<div class="avatar">
+
+										</div>
+										<div class="result">
+											<p class="losing-side">3</p>
+											<span>-</span>
+											<p class="winning-side">12</p>
+										</div>
+										<div class="status win">
+											<p>Loss</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+                    </div>
+                </div>
+                <div class="sidebar">
+					<div class="sidebar-overlay"></div>
+					<div class="sidebar-header">
+						<div class="user-info">
+							<div class="user-avatar"></div>
+							<h1>NoobMaster69</h1>
+						</div>
+						<svg class="menu-btn" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M6 9L12 15L18 9" stroke="#020F10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>							
+					</div>
+					<ul class="menu">
+						<li class="menu-link">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#051b28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+							<p>My Profile</p>						
+						</li>
+						<li class="menu-link">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#051b28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+							<p>Settings</p>
+						</li>
+						<li class="menu-link">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#051b28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+							<p>Log out</p>
+						</li>
+					</ul>
+					<div class="friends">
+						<div class="friends-header">
+							<p>Friends <span>1/4</span></p>
+							<svg class="search-friend-btn" width="32" height="32" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M13.3333 17.5V15.8333C13.3333 14.9493 12.9821 14.1014 12.3569 13.4763C11.7318 12.8512 10.884 12.5 9.99992 12.5H4.16659C3.28253 12.5 2.43468 12.8512 1.80956 13.4763C1.18444 14.1014 0.833252 14.9493 0.833252 15.8333V17.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M7.08333 9.16667C8.92428 9.16667 10.4167 7.67428 10.4167 5.83333C10.4167 3.99238 8.92428 2.5 7.08333 2.5C5.24238 2.5 3.75 3.99238 3.75 5.83333C3.75 7.67428 5.24238 9.16667 7.08333 9.16667Z" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M16.6667 6.66675V11.6667" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M19.1667 9.16675H14.1667" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>								
+						</div>
+						<div class="friends-list">
+							<div class="friend">
+								<div class="friend-info">
+									<div class="friend-avatar">
+										<div class="connectivity-status">
+										</div>
+									</div>
+									<h1>Ahmed Anogot</h1>
+								</div>
+								<svg width="32" height="32" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M6 2.5V9.5" stroke="#18AD00" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M2.5 6H9.5" stroke="#18AD00" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+							</div>
+							<div class="friend">
+								<div class="friend-info">
+									<div class="friend-avatar"></div>
+									<h1>Amine l7atba</h1>
+								</div>
+								<svg width="32" height="32" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M6 2.5V9.5" stroke="#18AD00" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M2.5 6H9.5" stroke="#18AD00" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+							</div>
+							<div class="friend">
+								<div class="friend-info">
+									<div class="friend-avatar"></div>
+									<h1>Hamza</h1>
+								</div>
+								<svg width="32" height="32" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M6 2.5V9.5" stroke="#18AD00" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M2.5 6H9.5" stroke="#18AD00" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+							</div>
+							<div class="friend">
+								<div class="friend-info">
+									<div class="friend-avatar"></div>
+									<h1>Yassine</h1>
+								</div>
+								<svg width="32" height="32" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M6 2.5V9.5" stroke="#18AD00" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M2.5 6H9.5" stroke="#18AD00" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+							</div>
+						</div>
+					</div>
+                </div>
+				<div class="add-friend-modal">
+					<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+					<h1>Discover New Friends</h1>
+					<input type="text" placeholder="Search friend">
+					<div class="add-friend-suggestions">
+						<div class="add-friend">
+							<div class="add-friend-info">
+								<div class="friend-avatar"></div>
+								<p>Amine l7tba</p>
+							</div>
+							<button>Send</button>
+						</div>
+						<div class="add-friend">
+							<div class="add-friend-info">
+								<div class="friend-avatar"></div>
+								<p>Hamza l7tba</p>
+							</div>
+							<button>Send</button>
+							</div>
+						</div>	
+						</div>
+						
+					</div>
+					
+				</div>
+            </div>
+        </div>
+		<script src="./dashboard.js"></script>
+    </body>
+</html>
