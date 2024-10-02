@@ -1,9 +1,12 @@
+let max_retries = 1;
+let retries = 0;
 
 async function handleAuthResponse(response, retryFunction) {
-    if (response.status === 401 || response.status === 400) {
+    if ((response.status === 401 || response.status === 400)) {
         await refresh_token();
         return retryFunction();
     }
+    // retries = 0;
     return response;
 }
 async function refresh_token() {
@@ -17,6 +20,6 @@ async function refresh_token() {
         localStorage.setItem('access_token', data.access_token);
     } else {
         console.error('error');
-        window.location.href = 'http://127.0.0.1:5501/frontend/signin/signin.html';
+        window.location.href = 'http://127.0.0.1:5500/frontend/signin/signin.html';
     }
 }

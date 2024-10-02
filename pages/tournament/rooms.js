@@ -13,7 +13,8 @@ class TournamentSocket{
 
 let CurrentUser = null;
 
-const socket = new WebSocket('ws://' + window.location.host + '/ws/rooms/');
+let access_token = localStorage.getItem('access_token');
+const socket = new WebSocket(`ws://localhost:8000/ws/rooms/?token=${access_token}`);
 
 socket.onmessage = function(e) {
     const data = JSON.parse(e.data);
@@ -25,7 +26,6 @@ socket.onmessage = function(e) {
         // updateRooms(data.rooms);
     }
 };
-
 function updateRooms(rooms) {
     var count = 0;
     const roomContent = document.getElementById('rooms-container');
@@ -158,7 +158,7 @@ function updateMatches(matches) {
 
 
 function createRoom() {
-    fetch('/rooms/create-room')
+    fetch('http://localhost:8000/api/rooms/create-room')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -174,9 +174,35 @@ function createRoom() {
         });
 }
 
-fetch('http://localhost:8000/api/rooms/rooms-list/')
-    .then(response => response.json())
-    .then(data => 
-        updateRooms(data.rooms),
-        // CurrentUser = data.current_user
-    );
+
+async function check_auth()
+    {
+        let access_token = localStorage.getItem('access_token');
+        let response = await fetch('http://127.0.0.1:8000/api/rooms/rooms-list/',{
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Authorization': `Bearer ${access_token}`,
+                }
+        });
+        // updateRooms(data.rooms);
+        response = await handleAuthResponse(response, check_auth);
+        if(response.ok)
+        {
+            updateRooms(data.rooms);
+        }   
+    }
+    check_auth();
+// console.log(access_token);
+// fetch('http://localhost:8000/api/rooms/rooms-list/', {
+//     method: 'GET',
+//     credentials: 'include',
+//     headers: {
+//         'Authorization': `Bearer ${access_token}`,
+//     }
+// })
+//     .then(response => response.json())
+//     .then(data => 
+//         updateRooms(data.rooms),
+//         // CurrentUser = data.current_user
+//     );

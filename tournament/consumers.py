@@ -2,12 +2,14 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from asgiref.sync import sync_to_async
+from datetime import datetime
 # from .models import Room, Player
 
-
+# @permission_classes[IsAuthenticated]
 class RoomConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.user = self.scope['user']
+        print('self user ===================>', self.user, flush=True)
         self.room_group_name = 'room_group'
         self.room_name = None
         await self.channel_layer.group_add(
@@ -82,14 +84,24 @@ class RoomConsumer(AsyncWebsocketConsumer):
     
     async def room_update(self, event):
         room_data = await self.get_data_room()
+        def convert_datetimes(data):
+            if isinstance(data, dict):
+                return {k: (v.isoformat() if isinstance(v, datetime) else v) for k, v in data.items()}
+            elif isinstance(data, list):
+                return [convert_datetimes(item) for item in data]
+            return data
+
+        # Convert all datetime fields in room_data
+        room_data_serializable = convert_datetimes(room_data)
         await self.send(text_data=json.dumps({
             'type': 'room_update',
-            'rooms': room_data
+            'rooms': room_data_serializable
         }))
 
     @database_sync_to_async
     def get_data_room(self):
-        from .models import Room, Player
+        from .models import Room
+        from ULogin.models import User as Player
         rooms = Room.objects.all()
         data = []
         for room in rooms:

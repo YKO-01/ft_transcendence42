@@ -82,6 +82,7 @@ def loginView(request):
 @permission_classes([IsAuthenticated])
 def checkAuth(request):
     user = request.user
+    print('user::',user, flush=True)
     serializer = UserSerializer(user, context={'request': request})
     return Response(UserDataSerializer(user).data)
 
@@ -116,8 +117,8 @@ def login42(request):
 
 def redirect42(user):
     if user.state_2fa == False:
-        return HttpResponseRedirect('http://127.0.0.1:5501/frontend/profile.html')
-    return HttpResponseRedirect('http://127.0.0.1:5501/frontend/2fa.html')
+        return HttpResponseRedirect('http://127.0.0.1:5500/pages/tournament/rooms.html')
+    return HttpResponseRedirect('http://127.0.0.1:5500/frontend/2fa.html')
 @api_view(["GET"])
 @authentication_classes([])
 @permission_classes([AllowAny])
@@ -186,7 +187,7 @@ def callback42(request):
                 return response
             user_serializer = User42Login(data=user_profile)
             if user_serializer.is_valid():
-                response = HttpResponseRedirect('http://127.0.0.1:5501/frontend/profile.html')
+                response = HttpResponseRedirect('http://127.0.0.1:5500/pages/tournament/rooms.html')
                 user = user_serializer.save()
                 refresh = RefreshToken.for_user(user)
                 access_token = str(refresh.access_token)

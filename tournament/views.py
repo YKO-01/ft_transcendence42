@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
-from .models import Player, Room, Match
+from .models import Room, Match
 from django.contrib.auth import authenticate, login
-# from rest_framework.decorators import api_view
+from ULogin.models import User as Player
+from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view,authentication_classes, permission_classes
 # from rest_framework.response import Response
 
 # Create your views here.
@@ -13,12 +16,13 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
 # @login_required
-# @api_view(['GET'])
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def rooms_list(request):
     print('rooms_list', flush=True)
-    login
     rooms = Room.objects.all()
     current_user = request.user
+    print('current_user', current_user, flush=True)
     data_room = [
         {
             'id': room.id,
@@ -36,6 +40,11 @@ def rooms_list(request):
 def create_room(request):
     # if request.method == 'POST':
     username = request.user.username
+    if not username:
+        return JsonResponse({
+            'success': False,
+            'message': 'Username is required'
+        })
     player = Player.objects.get(username=username)
     print('player.is_joining', player.is_joining, flush=True)
     if player.is_joining:

@@ -1,14 +1,29 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from ULogin.models import User as Player
 
 # Create your models here.
 
-class Player(AbstractUser):
-    is_online = models.BooleanField(default=False)
-    is_joining = models.BooleanField(default=False)
-    nickname = models.CharField(max_length=100, default='')
-    def __str__(self):
-        return self.username
+# class Player(AbstractUser):
+#     groups = models.ManyToManyField(
+#         'auth.Group',
+#         related_name='player_user_set',  # Unique related name
+#         blank=True,
+#         help_text='The groups this player belongs to.',
+#         verbose_name='groups'
+#     )
+#     user_permissions = models.ManyToManyField(
+#         'auth.Permission',
+#         related_name='player_user_permissions_set',  # Unique related name
+#         blank=True,
+#         help_text='Specific permissions for this player.',
+#         verbose_name='user permissions'
+#     )
+#     is_online = models.BooleanField(default=False)
+#     is_joining = models.BooleanField(default=False)
+#     nickname = models.CharField(max_length=100, default='')
+#     def __str__(self):
+#         return self.username
 
 class Room(models.Model):
     id = models.AutoField(primary_key=True)

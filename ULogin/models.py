@@ -3,6 +3,20 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class User(AbstractUser):
+    groups = models.ManyToManyField(
+        'auth.Group',
+        related_name='ulogin_user_set',  # Unique related name
+        blank=True,
+        help_text='The groups this user belongs to.',
+        verbose_name='groups'
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        related_name='ulogin_user_permissions_set',  # Unique related name
+        blank=True,
+        help_text='Specific permissions for this user.',
+        verbose_name='user permissions'
+    )
     level = models.IntegerField(default=1)
     img_url = models.CharField(max_length=255, default="https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png")
     # img_url = models.ImageField(upload_to='profile_pics', default='profile_pics/1177568.png')
@@ -15,9 +29,13 @@ class User(AbstractUser):
     username = models.CharField(max_length=150, blank=True, null=True)
     USERNAME_FIELD = 'email'  # Set email as the primary identifier
     REQUIRED_FIELDS = ['username']  # Add any other fields that are required
+
+    is_online = models.BooleanField(default=False)
+    is_joining = models.BooleanField(default=False)
+    nickname = models.CharField(max_length=100, default='')
     
     def __str__(self):
-        return self.email  
+        return self.username
     
 
 class Friend(models.Model):
