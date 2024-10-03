@@ -44,16 +44,18 @@ class Room(models.Model):
     
     def add_player(self, player, nickname):
         if not self.is_full:
-            if player.is_joining:
+            cur_player = Player.objects.get(username=player.username)
+            if cur_player.is_joining:
                 return False
-            player.is_joining = True
-            self.players.add(player)
-            current_player = self.players.get(username=player.username)
-            current_player.nickname = nickname
-            current_player.is_joining = True
-            current_player.save()
+            cur_player.is_joining = True
+            cur_player.nickname = nickname
+            cur_player.save()
+            self.players.add(cur_player)
+            current_p = Player.objects.get(username="ayakobi")
+            self.players.add(current_p)
+            print("pleyer is exist")
             self.count += 1
-            self.save()
+            self.save()            
             return True
         return False
 

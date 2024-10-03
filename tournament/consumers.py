@@ -35,7 +35,7 @@ class RoomConsumer(AsyncWebsocketConsumer):
         nickname = data.get('nickname')
 
         if action == 'join':
-            res = await self.join_room(room_id, nickname)
+            await self.join_room(room_id, nickname)
         elif action == 'leave':
             await self.leave_room(room_id)
         await self.channel_layer.group_send(

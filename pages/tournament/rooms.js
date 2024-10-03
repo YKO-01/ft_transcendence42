@@ -18,19 +18,22 @@ const socket = new WebSocket(`ws://localhost:8000/ws/rooms/?token=${access_token
 
 socket.onmessage = function(e) {
     const data = JSON.parse(e.data);
-    console.log(data.type);
-    if (data.type === 'room_update') 
+    console.log("data from socket" + data.type);
+    if (data.type === 'room_update')
+    {
         updateRooms(data.rooms);
+    }
     if (data.type === 'match_update'){
         updateMatches(data.matches);
         // updateRooms(data.rooms);
     }
 };
 function updateRooms(rooms) {
+    console.log("room update");
     var count = 0;
     const roomContent = document.getElementById('rooms-container');
     roomContent.innerHTML = '';
-
+    console.log(rooms.length);
     if (rooms.length === 0) {
         const btncreate = document.createElement('button');
         btncreate.textContent = 'Create Room';
@@ -40,6 +43,7 @@ function updateRooms(rooms) {
     }
     else {
         rooms.forEach(room => {
+            console.log("room.id " + room.id);
             const roomDiv = document.createElement('div');
             roomDiv.classList.add('room');
             roomDiv.innerHTML = `
@@ -126,6 +130,7 @@ function joinRoom(roomId) {
 
     submitButton.addEventListener('click', function() {
         const nickname = nicknameInput.value;
+        // event.preventDefault();
         // const roomId = button.getAttribute('data-room');
         // Assuming 'socket' is the WebSocket you are using
         socket.send(JSON.stringify({
@@ -174,7 +179,7 @@ function createRoom() {
         });
 }
 
-
+// access_token = localStorage.getItem('access_token');
 async function check_auth()
     {
         let access_token = localStorage.getItem('access_token');
@@ -185,12 +190,20 @@ async function check_auth()
                     'Authorization': `Bearer ${access_token}`,
                 }
         });
-        // updateRooms(data.rooms);
+        // if (response.ok)
+        //     updateRooms(data.rooms);
         response = await handleAuthResponse(response, check_auth);
+        console.log(response);
         if(response.ok)
         {
+            let data = await response.json();
             updateRooms(data.rooms);
-        }   
+            rooms.forEach(room => {
+                console.log(room.id);
+            });
+        }
+        else
+            console.log("does not exist");
     }
     check_auth();
 // console.log(access_token);
