@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from ULogin.models import User as Player
+from channels.db import database_sync_to_async
 
 # Create your models here.
 
@@ -28,7 +29,7 @@ from ULogin.models import User as Player
 class Room(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
-    players = models.ManyToManyField(Player)
+    players = models.ManyToManyField(Player, related_name='players')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     count = models.IntegerField(default=0)
@@ -43,20 +44,21 @@ class Room(models.Model):
         return self.count >= 4
     
     def add_player(self, player, nickname):
-        if not self.is_full:
-            if player.is_joining:
-                return False
-            player.is_joining = True
-            self.players.add(player)
-            current_player = self.players.get(username=player.username)
-            current_player.nickname = nickname
-            current_player.is_joining = True
-            current_player.save()
-            self.count += 1
-            self.save()
-            return True
-        return False
+        try:
+            if not self.is_full:
+                cur_player = Player.objects.get(username=player.username)
+                cur_player.is_joining = True
+                cur_player.nickname = nickname
+                cur_player.save()
+                self.players.add(cur_player)
+                self.count += 1
+                self.save()
+                return True
+            return False
+        except Player.DoesNotExist:
+            return False
 
+    # @database_sync_to_async
     def remove_player(self, player):
         if player in self.players.all():
             player.is_joining = False

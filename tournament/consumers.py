@@ -2,7 +2,7 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from asgiref.sync import sync_to_async
-from datetime import datetime
+from datetime import datetime, date
 # from .models import Room, Player
 
 # @permission_classes[IsAuthenticated]
@@ -10,6 +10,8 @@ class RoomConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.user = self.scope['user']
         print('self user ===================>', self.user, flush=True)
+        if self.user is None:
+            await self.close()
         self.room_group_name = 'room_group'
         self.room_name = None
         await self.channel_layer.group_add(
@@ -26,7 +28,8 @@ class RoomConsumer(AsyncWebsocketConsumer):
         )
 
     async def disconnect(self, close_code):
-        await self.leave_from_all_rooms()
+        # await self.leave_from_all_rooms()
+        pass
     
     async def receive(self, text_data):
         data = json.loads(text_data)
@@ -35,7 +38,7 @@ class RoomConsumer(AsyncWebsocketConsumer):
         nickname = data.get('nickname')
 
         if action == 'join':
-            res = await self.join_room(room_id, nickname)
+            await self.join_room(room_id, nickname)
         elif action == 'leave':
             await self.leave_room(room_id)
         await self.channel_layer.group_send(
@@ -84,19 +87,22 @@ class RoomConsumer(AsyncWebsocketConsumer):
     
     async def room_update(self, event):
         room_data = await self.get_data_room()
-        def convert_datetimes(data):
-            if isinstance(data, dict):
-                return {k: (v.isoformat() if isinstance(v, datetime) else v) for k, v in data.items()}
-            elif isinstance(data, list):
-                return [convert_datetimes(item) for item in data]
-            return data
+        # def convert_datetimes(data):
+        #     if isinstance(data, dict):
+        #         return {k: (v.isoformat() if isinstance(v, datetime) else v) for k, v in data.items()}
+        #     elif isinstance(data, list):
+        #         return [convert_datetimes(item) for item in data]
+        #     return data
 
-        # Convert all datetime fields in room_data
-        room_data_serializable = convert_datetimes(room_data)
+        # # Convert all datetime fields in room_data
+        # room_data_serializable = convert_datetimes(room_data)
+        def myconverter(obj):
+            if isinstance(obj, (datetime, date)):
+                return obj.isoformat()
         await self.send(text_data=json.dumps({
             'type': 'room_update',
-            'rooms': room_data_serializable
-        }))
+            'rooms': room_data,
+        }, default=myconverter))
 
     @database_sync_to_async
     def get_data_room(self):

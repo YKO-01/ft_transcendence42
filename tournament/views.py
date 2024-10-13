@@ -37,9 +37,13 @@ def rooms_list(request):
     ]
     return JsonResponse({'rooms': data_room, 'current_user': current_user.username})
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def create_room(request):
     # if request.method == 'POST':
+    print('request method', request.method, flush=True)
     username = request.user.username
+    print('username', username, flush=True)
     if not username:
         return JsonResponse({
             'success': False,
