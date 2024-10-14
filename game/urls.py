@@ -2,5 +2,4 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
-]
+    path('api/rooms/game-start/<int:room_id>/', views.startgame, name='startgame'),

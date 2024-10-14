@@ -142,6 +142,8 @@ def leave_room(request):
     })
 
 # @csrf_exempt
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def matches_room(request, room_id):
     print('matches_room', flush=True)
     # if request.method == 'POST':
@@ -155,8 +157,8 @@ def matches_room(request, room_id):
             for match in matches:
                 data_matches.append({
                     'id': match.id,
-                    'player1': match.player1.username,
-                    'player2': match.player2.username,
+                    'player1': match.player1.nickname,
+                    'player2': match.player2.nickname,
                     # 'winner': match.winner.username if match.winner else None
                 })
                 
