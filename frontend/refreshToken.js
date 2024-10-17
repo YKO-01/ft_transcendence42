@@ -1,10 +1,5 @@
 
 async function handleAuthResponse(response, retryFunction) {
-    // if (response.status === 401 /*|| response.status === 400*/) {
-    //     await refresh_token();
-    //     return retryFunction();
-    // }
-    console.log('response status',response.status);
     try{
         if (response.status === 401) {
             await refresh_token();
@@ -13,7 +8,7 @@ async function handleAuthResponse(response, retryFunction) {
     }
     catch (e) {
         console.error('error');
-        // window.location.href = 'https://127.0.0.1/frontend/signin/signin.html';
+        window.location.href = 'https://127.0.0.1/frontend/signin/signin.html';
     }
     return response;
 }
@@ -30,6 +25,6 @@ async function refresh_token() {
     } else {
         console.log('Failed to refresh token');
         throw new Error('Failed to refresh token  ');
-        // window.location.href = 'http://127.0.0.1:5501/frontend/signin/signin.html';
+        // window.location.href = 'http://127.0.0.1/frontend/signin/signin.html';
     }
 }

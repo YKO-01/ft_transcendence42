@@ -121,7 +121,7 @@ def login42(request):
 
 def redirect42(user):
     if user.state_2fa == False:
-        return HttpResponseRedirect('https://127.0.0.1/frontend/profile.html')
+        return HttpResponseRedirect('https://127.0.0.1:443/frontend/rooms.html')
     return HttpResponseRedirect('https://127.0.0.1/frontend/2fa.html')
 @api_view(["GET"])
 @authentication_classes([])
@@ -187,7 +187,7 @@ def callback42(request):
                 return response
             user_serializer = User42Login(data=user_profile)
             if user_serializer.is_valid():
-                response = HttpResponseRedirect('http://127.0.0.1:5501/frontend/profile.html')
+                response = HttpResponseRedirect('https://127.0.0.1:443/frontend/rooms.html')
                 user = user_serializer.save()
                 refresh = RefreshToken.for_user(user)
                 access_token = str(refresh.access_token)

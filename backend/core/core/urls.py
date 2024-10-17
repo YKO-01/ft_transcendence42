@@ -24,4 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/',include('ULogin.urls')),
     path('oauth/', include('ULogin.urls')),
+    path('', include('tournament.urls')),
+    path('', include('game.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

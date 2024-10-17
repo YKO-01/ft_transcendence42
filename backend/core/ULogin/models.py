@@ -17,9 +17,12 @@ class User(AbstractUser):
     username = models.CharField(max_length=150, blank=True, null=True)
     USERNAME_FIELD = 'email'  # Set email as the primary identifier
     REQUIRED_FIELDS = ['username']  # Add any other fields that are required
+
+    is_joining = models.BooleanField(default=False)
+    nickname = models.CharField(max_length=100, default='')
     
     def __str__(self):
-        return self.email  
+        return self.username  
     
 
 class FriendRequest(models.Model):
