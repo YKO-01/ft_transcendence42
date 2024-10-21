@@ -1,0 +1,237 @@
+- REGISTER:
+    URL : 'http://127.0.0.1:8000/api/register'
+    Methods: POST
+    Request Body: 
+    {
+        "username": "new_user",
+        "email": "user@example.com",
+        "password": "password",
+        "password1": "password"
+    }
+    Response:
+        Succes
+            status: 201
+            {'message': 'User created successfully'}
+        Failed
+            status: 400
+            {{'message': 'error!'}}
+
+- Login
+    URL: http://127.0.0.1:8000/api/login42/
+    Method: POST
+    request headers:
+        {
+          "Content-Type": "application/json",
+          "X-CSRFToken": "csrftoken"
+        }
+    Request Body:
+        {
+            "email": "b@b.com",
+            "password": "b"
+        }
+    Response
+        Failed
+            status:401
+            {detail: 'error!'}
+        Succes
+            2fa enable:
+                When 2FA is enabled ,store the provided "token" in localStorage and redirect to page verify 2fa
+                {'2fa': true | false, 'token': ''}
+            2fa disabled:
+                store the provided access_token in localStorage and redirect to profile
+                {'2fa':true | false, 'detail': 'User logged in successfully', 'access_token': token['access'],}
+
+- Validate 2fa
+    URL: 'http://127.0.0.1:8000/api/verify2fa/'
+    method: 'POST',
+    request headers: {'Content-Type': 'application/json',}
+    Request Body:{'token': token,'code': code,}
+    Response
+        Failed
+            status: 400
+            {'message': 'Invalid 2fa code'}
+        Succes
+            code is correct, redirect to profile
+            status 200
+            {'message': 'success','access_token': token['access'],}
+- Logout
+    URL: 'http://127.0.0.1:8000/api/logout/'
+    method: 'POST'
+    Response:
+        remove from localStorage access_token and redirect to signup
+        status: 200
+        {'message': 'Successfully logged out'}
+
+- Refresh access Token
+    URL: 'http://127.0.0.1:8000/api/refresh/'
+    method: 'POST',
+    Failed  
+        Delete access_token from localStorage and go signup page
+        -   status:400
+            {'detail': 'Refresh token not found'}
+        - status: 404
+            {'detail': 'Refresh token is invalid or expired!'}
+    Succes
+        update old access_token by new one in localStorage 
+        status 200
+        {'message': 'Token refreshed','access_token': str(new_access_token),}
+
+- Delete User
+    URL: 'http://127.0.0.1:8000/api/deletUser/'
+    method: 'POST',
+    request headers
+        send access token to know the user
+        {'Authorization': `Bearer ${access_token}`,}
+    Response
+        success
+            status 200
+            {'message': 'User deleted successfully',}
+        Failed
+            status 404
+            {'message': 'User does not exist!'}
+
+- User Data
+    URL: http://127.0.0.1:8000/api/user/
+    method: 'GET',
+    request headers
+        {'Authorization': `Bearer ${access_token}`,}
+    Response
+        status 200
+        {email: "b@b.com",first_name: "",full_name: "",id: 1,img_url: "imgPAth",last_name: "",level: 1,state_2fa: false,username: "b"}
+
+-update User Data
+    URL: http://127.0.0.1:8000/api/updateUser/
+    method: 'PATCH',
+    request headers
+        {'Authorization': `Bearer ${access_token}`,}
+    Request Body
+        {first_name: "", img_url: "imgPAth",state_2fa: false,username: "b"}
+
+
+- Search Users
+    URL: http://127.0.0.1:8000/api/searchUsers/?q=${query}
+    method: 'GET',
+    request headers
+        {'Authorization': `Bearer ${access_token}`,}
+    response{''}
+
+
+
+***  Freind Request ***
+- Get Friend Requests
+    URL: http://127.0.0.1:8000/api/getFriendRequests/
+    method: 'GET',
+    request headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`}
+    Response 
+        {{Array Friends Request}}
+
+
+
+- Accept Friend Request
+    URL: http://127.0.0.1:8000/api/acceptFriendRequest/
+    method: 'POST',
+    request headers
+        {'Authorization': `Bearer ${localStorage.getItem('access_token')}`,'Content-Type': 'application/json'},
+    Body Request    
+        {'id': id}
+    Response
+        success
+            status 200
+            {'message': 'Friend request accepted successfully'}
+        Failed
+            status 400
+            {'message': '...'}
+
+/////            
+-Reject Freind Request
+    URL: http://127.0.0.1:8000/api/rejectFriendRequest/
+    method: 'POST',
+    request headers
+        {'Authorization': `Bearer ${localStorage.getItem('access_token')}`,'Content-Type': 'application/json'},
+    Body Request    
+        {'id': id}
+    Response
+        success
+            status 200
+            {'message': 'Friend request rejected successfully'}
+        Failed
+            status 400
+            {'message': '...'}
+//////
+
+- Send Request Friend
+    URL: http://127.0.0.1:8000/api/sendRequestFriend/
+    method: 'POST',
+    request headers
+        {'Authorization': `Bearer ${localStorage.getItem('access_token')}`,'Content-Type': 'application/json'},
+    Request Body
+        id user to send request
+        {'id': id}
+    Response
+        success
+            status 200
+            {'message': '...'}
+        Failed
+            status 400
+            {'message': '...'}
+
+
+***  Friend ***
+- Get Friends List
+    URL: http://127.0.0.1:8000/api/getFriendsList/
+    method: 'GET',
+    request headers
+         {'Authorization': `Bearer ${localStorage.getItem('access_token')}`}
+    Response Body
+        {Array Friends List}
+
+- Unfriend a Friend
+    URL: http://127.0.0.1:8000/api/unfriend/
+    method: 'POST',
+    request headers
+        {'Authorization': `Bearer ${localStorage.getItem('access_token')}`,'Content-Type': 'application/json'},
+    Body Request    
+        {'id': id}
+    Response
+        success
+            status 200
+            {'message': 'Friend removed successfully'}
+        Failed
+            status 400
+            {'message': '...'}
+
+
+***  Block Freind  ***
+- Block Freind
+    URL: http://127.0.0.1:8000/api/blockFriend/
+    method: 'POST',
+    request headers
+        {'Authorization': `Bearer ${localStorage.getItem('access_token')}`,'Content-Type': 'application/json'},
+    Body Request    
+        {'id': id}
+    Response
+        success
+            status 200
+            {'message': 'Friend blocked successfully'}
+        Failed
+            status 400
+            {'message': '...'}
+
+- Unblock Friend
+    URL: http://127.0.0.1:8000/api/unblockFriend/
+    method: 'POST',
+    request headers
+        {'Authorization': `Bearer ${localStorage.getItem('access_token')}`,'Content-Type': 'application/json'},
+    Body Request    
+        {'id': id}
+    Response
+        success
+            status 200
+            {'message': 'Friend unblocked successfully'}
+        Failed
+            status 400
+            {'message': '...'}
+
+
+
+

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>2 Factor Authentication</h1>
+    <p>Enter the code sent to your email</p>
+    <form method="post">
+        <input type="text" name="code" placeholder="Enter code">
+        <button type="submit">submit</button>
+    </form>
+</body>
+</html>
+<script>
+    document.querySelector('form').addEventListener('submit',async function(e) {
+        e.preventDefault();
+        let access_token = localStorage.getItem('access_token');
+        let token = localStorage.getItem('token');
+        let code = document.querySelector('input').value;
+        let response = await fetch('http://127.0.0.1:8000/api/verify2fa/',{
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                'token': token,
+                'code': code,
+            })
+        });
+        if(response.status === 200)
+        {
+            let data = await response.json();
+            localStorage.setItem('access_token',data.access_token);
+            // window.location.href = 'http://127.0.0.1:5501/frontend/profile.html';
+            window.location.href = 'https://127.0.0.1/frontend/profile.html';
+        }
+        else
+            console.error();
+    });
+
+    // async function refresh_token()
+    // {
+    //     let response = await fetch('http://127.0.0.1:8000/api/refresh/',{
+    //                 method: 'POST',
+    //                 credentials: 'include',
+    //     });
+    //     console.log(response.status);
+    //     if(response.status === 200){
+    //         let data = await response.json();
+    //         localStorage.setItem('access_token',data.access_token);
+    //         check_auth();
+    //     }
+    //     else{
+    //         console.error('error');
+    //         window.location.href = 'http://127.0.0.1:5501/frontend/signin/signin.html';
+    //     }
+    // }
+    // async function check_auth()
+    // {
+    //     let access_token = localStorage.getItem('access_token');
+    //     let response = await fetch('http://127.0.0.1:8000/api/user/',{
+    //             method: 'GET',
+    //             credentials: 'include',
+    //             headers: {
+    //                 'Authorization': `Bearer ${access_token}`,
+    //             }
+    //     });
+    //     if(response.status === 401)
+    //     {
+    //         localStorage.removeItem('access_token');
+    //         await refresh_token();
+    //     }
+    //     else
+    //     {
+    //         let data = await response.json();
+    //         console.log(data);
+    //     }
+    // }
+    // check_auth();
+</script>

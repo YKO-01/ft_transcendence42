@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Profile page</h1>
+    <p>Welcome to your profile page</p>
+    <h2></h2>
+    <form method="post">
+        <input type="submit" value="Logout">
+    </form>
+</body>
+</html>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function fetchUserData() {
+            fetch('http://127.0.0.1:8000/api/user/', {
+                method: 'GET',
+                credentials: 'include',
+            })
+            .then(response => {
+                if (response.status === 401) {
+                    return refreshAccessToken();
+                } else {
+                    return response.json(); // or handle other status codes if needed
+                }
+            })
+            .then(data => {
+                if (data) {
+                    console.log('User Data:', data);
+                    // Update your UI with user data
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
+            });
+        }
+
+        function refreshAccessToken() {
+            return fetch('http://127.0.0.1:8000/api/refresh/', {
+                method: 'POST',
+                credentials: 'include',
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json(); // Assuming the new access token is returned here
+                } else {
+                    throw new Error('Failed to refresh token');
+                }
+            })
+            .then(() => {
+                return fetchUserData(); // Retry fetching user data after refreshing token
+            })
+            .catch(error => {
+                console.error('Error refreshing access token:', error);
+                window.location.href = '/templates/login.html'; // Redirect to login page if refresh fails
+            });
+        }
+
+        fetchUserData();
+    });
+    document.querySelector('form').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+
+        fetch('http://127.0.0.1:8000/api/logout/', {
+            method: 'POST',
+            credentials: 'include', 
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = '/templates/login.html';
+            } else {
+                throw new Error('Logout failed');
+            }
+        })
+        .catch(error => {
+            console.error('There was a problem with the logout operation:', error);
+        });
+    });
+
+</script>

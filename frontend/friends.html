@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Friends
+    </title>
+</head>
+<body>
+    <h1>Page Friends</h1>
+    <button>
+        <!-- <a href="http://127.0.0.1:5501/frontend/profile.html">Profile page</a> -->
+        <a href="https://127.0.0.1/frontend/profile.html">Profile page</a>
+    </button>
+    <br><br><br><br>
+    <div id="Search-Friends">
+        <input type="text" id="search-user" name="matched_user" placeholder="Search User">
+        <ul>
+
+        </ul>
+    </div>
+
+    <div id="Request-Friends">
+        <h2>Request Friends List</h2>
+        <div></div>
+    </div>
+
+    <div id="Friends-List">
+        <h2>Friends List</h2>
+        <div></div>
+    </div>
+
+</body>
+<script src="refreshToken.js"></script>
+<script>
+    const searchInput = document.getElementById('search-user');
+    const FriendsList = document.getElementById('Friends-List');
+    const RequestFriends = document.getElementById('Request-Friends');
+    check_auth();
+    async function userStateOnline(id){
+        console.log('id::',id);
+        let wsProtocol = window.location.protocol === "https:" ? "wss://" : "ws://";
+        let url = `ws://127.0.0.1:8000/ws/socket-server/?id=${id}`;  
+        let socket = new WebSocket(url);
+        console.log(socket);
+        socket.onmessage = function(event){
+            let data = JSON.parse(event.data);
+            console.log(data);
+        }
+    }  
+    // userStateOnline(id);
+
+    async function check_auth()
+    {
+        let access_token = localStorage.getItem('access_token');
+        let response = await fetch('http://127.0.0.1:8000/api/user/',{
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Authorization': `Bearer ${access_token}`,
+                }
+        });
+        response = await handleAuthResponse(response, check_auth);
+        if(response.ok)
+        {
+            let data = await response.json();
+            console.log('user',data);
+            userStateOnline(data['id']);
+        }
+    }
+    
+
+
+    // function Friend Request ALL  
+    async function acceptFriendRequest(id){
+        let response = await fetch(`http://127.0.0.1:8000/api/acceptFriendRequest/`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'id': id
+            })
+        });
+        response = await handleAuthResponse(response, acceptFriendRequest);
+        if(response.ok){
+            viewRequestFriend();
+            getFriendsList();
+        }
+        let data = await response.json();
+        console.log(data['message']);
+    }
+    
+    async function rejectFriendRequest(id){
+        let response = await fetch(`http://127.0.0.1:8000/api/rejectFriendRequest/`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'id': id
+            })
+        });
+        response = await handleAuthResponse(response, rejectFriendRequest);
+        if(response.ok){
+            viewRequestFriend();
+            getFriendsList();
+        }
+        let data = await response.json();
+        console.log(data['message']);
+    }
+    viewRequestFriend();
+    async function viewRequestFriend(){
+        let response = await fetch('http://127.0.0.1:8000/api/getFriendRequests/', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+            }
+        });
+        response = await handleAuthResponse(response, viewRequestFriend);
+        if (response.ok){
+            let data = await response.json();
+            console.log(data);
+            let display = document.querySelector('#Request-Friends div');
+            display.innerHTML = '';
+            for (let friend of data['results']) {
+                display.innerHTML += `<li id=${friend['id']}>
+                        ${friend['username']}
+                        <button type="button" onclick="acceptFriendRequest(${friend['id']})">Accept</button>
+                        <button type="button" onclick="rejectFriendRequest(${friend['id']})">Reject</button>
+                    </li>`;
+            }
+        }
+    }
+    async function sendRequestFriend(id){
+        let response = await fetch(`http://127.0.0.1:8000/api/sendRequestFriend/`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'id': id
+            })
+        })
+
+        response = await handleAuthResponse(response, sendRequestFriend);
+        let data = await response.json();
+        console.log(data['message']);
+    }
+    
+    
+
+    // Function Of Friend ALL
+    async function getFriendsList()
+    {
+        let response = await fetch('http://127.0.0.1:8000/api/getFriendsList/', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+            }
+        });
+        response = await handleAuthResponse(response, getFriendsList);
+        if (response.ok){
+            let data = await response.json();
+            console.log(data);
+            let display = document.querySelector('#Friends-List div');
+            display.innerHTML = '';
+            for (let friend of data['results']) {
+                display.innerHTML += `<li id=${friend['id']}>
+                        ${friend['username']}
+                        <button type="button" onclick="viewUser(${friend['id']})">View Profile</button>
+                        <button type="button" onclick="unfriend(${friend['id']})">Unfriend</button>
+                        <button type="button" onclick="blockUser(${friend['id']})">Block</button>
+                    </li>`;
+            }
+        }
+    }
+    getFriendsList();
+    async function unfriend(id){
+        let response = await fetch(`http://127.0.0.1:8000/api/unfriend/`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'id': id
+            })
+        });
+        response = await handleAuthResponse(response, unfriend);
+        let data = await response.json();
+    }
+    searchInput.addEventListener('input', async function search_input() {
+        const query = searchInput.value.trim();  // Get the input value
+        let response = await fetch(`http://127.0.0.1:8000/api/searchUsers/?q=${query}`, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+            }
+        });
+        response = await handleAuthResponse(response, searchInput);
+        if (response.ok){
+            let data = await response.json();
+            document.querySelector('ul').innerHTML = '';
+            console.log(data);
+            for (let user of data['results']) {
+                document.querySelector('ul').innerHTML += `<li id=${user['id']}>
+                        ${user['username']}
+                        <button type="button" onclick="addfriend(${user['id']})">Add As Freind</button>
+                        <button type="button" onclick="viewUser(${user['id']})">View Profile</button>
+                    </li>`;
+            }
+        }
+    });
+
+
+    async function blockUser(id){
+
+    }
+</script>
+</html>

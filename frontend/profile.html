@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        form{
+            border: 2px solid black;
+            padding: 20px;
+            height: 75px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Profile Page</h1>
+    <button>
+        <!-- <a href="http://127.0.0.1:5501/frontend/friends.html">Friends Page</a> -->
+        <a href="https://127.0.0.1/frontend/friends.html">Friends Page</a>
+    </button>
+    <p>Welcome to your profile page</p>
+    <p id="info">
+
+    </p>
+
+    <input type="text" id="search-user" name="matched_user" placeholder="Search User">
+    <ul>
+
+    </ul>
+    <form action="#">
+        <p>Logout</p>
+        <button type="submit">
+            <p>Logout</p>
+        </button>
+    </form>
+    <br>
+    <form method="delete" id="delete">
+        <p>Delete Account</p>
+        <button type="submit">
+            <p>Delete Account</p>
+        </button>
+    </form>
+    <br><br><br>
+    <p>Update User info</p>
+    <input type="text" id="first-name" name="first_name" placeholder="first name"><br>
+
+    <input type="text" id="last-name" name="last_name" placeholder="last name"><br>
+
+    <input type="text" id="username" name="username" placeholder="username"><br>
+
+    <input type="text" id="level" name="level" placeholder="level"><br>
+
+    <input type="checkbox" name="state_2fa" id="state_2fa"><br>
+
+    <input type="file" id="image-input" name="img_url" accept="image/*"><br>
+
+    <img id="qrCode">
+
+    <button type="button" id="update-btn">Update Profile</button>
+
+
+    <h3 id="lol"></h3>
+</body>
+<script src="./refreshToken.js"></script>
+<script>
+    const searchInput = document.getElementById('search-user');
+    const resultsList = document.getElementById('user-results');
+    async function viewUser(id){
+        let access_token = localStorage.getItem('access_token');
+        let response = await fetch(`http://127.0.0.1:8000/api/sendRequestFriend/`,{
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Authorization': `Bearer ${access_token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'id': id
+            })
+        });
+        response = await handleAuthResponse(response, viewUser);
+        if (response.ok){
+            console.log(response.status);
+            let data = await response.json();
+            console.log(data);
+        }
+    }
+    searchInput.addEventListener('input', async function searchUsers() {
+        const query = searchInput.value.trim();  // Get the input value
+        let response = await fetch(`http://127.0.0.1:8000/api/searchUsers/?q=${query}`, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+            }
+        });
+        response = await handleAuthResponse(response, searchInput);
+        if (response.ok){
+            let data = await response.json();
+            document.querySelector('ul').innerHTML = '';
+            console.log(data);
+            for (let user of data['results']) {
+                document.querySelector('ul').innerHTML += `<li id=${user['id']}>
+                        ${user['username']}
+                        <button type="button" onclick="viewUser(${user['id']})">Add As Freind</button>
+                    </li>`;
+            }
+        }
+    });
+
+
+
+    async function updateUser() {
+        let access_token = localStorage.getItem('access_token');
+        const formData = new FormData();
+        formData.append('first_name', document.querySelector('#first-name').value);
+        formData.append('last_name', document.querySelector('#last-name').value);
+        formData.append('username', document.querySelector('#username').value);
+        formData.append('level', document.querySelector('#level').value);
+        formData.append('state_2fa', document.querySelector('#state_2fa').checked);
+
+        // Append file if selected
+        const imageInput = document.querySelector('#image-input').files[0];
+        if (imageInput) 
+            formData.append('img_url', imageInput);
+        for (var pair of formData.entries()) {
+            if (pair[1] === '')
+                formData.delete(pair[0]);
+        }
+        for (var pair of formData.entries()) {
+            console.log(pair[0] + ', ' + pair[1]);
+        }
+        let response = await fetch('http://127.0.0.1:8000/api/updateUser/', {
+            method: 'PATCH',
+            credentials: 'include',
+            body: formData,
+            headers: {
+                'Authorization': `Bearer ${access_token}`,
+            }
+        });
+        response = await handleAuthResponse(response, updateUser);
+        if (response.status === 200) {
+            result = await response.json();
+            console.log(result);
+            document.getElementById('info').innerHTML = `
+                your email ${result.data['first_name']}<br>
+                first name ${result.data['first_name']}<br>
+                last name ${result.data['last_name']}<br>
+                username ${result.data['username']}<br>
+                level ${result.data['level']}<br>
+                state_2fa ${result.data['state_2fa']}
+                <br>
+                <img src="${result.data['img_url']}" width=100px; alt="profile image">
+                ${(result.data['state_2fa'] === true) ? `<img src="${result.data['qr_img']}" width=100px; alt="qr code">` : ''}
+            `
+
+        } else 
+            console.error('Error updating profile', await response.json());
+        
+}
+
+
+    document.querySelector('#update-btn').addEventListener('click', function btnUpdataUser(event) {
+        // event.preventDefault();  // Ensure form submission is prevented
+        updateUser();
+    });
+
+    deleteUser = async () => {
+        let access_token = localStorage.getItem('access_token');
+        let response = await fetch('http://127.0.0.1:8000/api/deletUser/',{
+            method: 'DELETE',
+            credentials: 'include',
+            headers: {
+                'Authorization': `Bearer ${access_token}`,
+            }
+        })
+        response = await handleAuthResponse(response, deleteUser);
+        if(response.status === 200)
+        {
+            localStorage.removeItem('access_token');
+            // window.loation.href = 'http://127.0.0.1:5501/frontend/signin/signin.html'
+            window.location.href = 'https://127.0.0.1/frontend/signin/signin.html';
+        }
+        else
+            console.error('error');
+    }
+    document.getElementById('delete').addEventListener('submit', function btnDeleteUser(event) {
+        event.preventDefault(); 
+        deleteUser();
+    });
+    document.querySelector('form').addEventListener('submit',async function logout(event) {
+        event.preventDefault(); 
+        let response = await fetch('http://127.0.0.1:8000/api/logout/',{
+            method: 'POST',
+            credentials: 'include',
+        })
+        response = await handleAuthResponse(response, logout);
+        if(response.status === 200)
+        {
+            localStorage.removeItem('access_token');
+            // window.location.href = 'http://127.0.0.1:5501/frontend/signin/signin.html';
+            window.location.href = 'https://127.0.0.1/frontend/signin/signin.html';
+
+        }
+        else
+            console.error('error');
+    });
+    async function check_auth()
+    {
+        let access_token = localStorage.getItem('access_token');
+        let response = await fetch('http://127.0.0.1:8000/api/user/',{
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Authorization': `Bearer ${access_token}`,
+                }
+        });
+        response = await handleAuthResponse(response, check_auth);
+        if(response.ok)
+        {
+            let data = await response.json();
+            console.log(data);
+            updataPageInfo(data);
+        }   
+    }
+    check_auth();
+     function updataPageInfo(data){
+        document.getElementById('info').innerHTML =`
+                your email ${data['email']}<br>
+                first name ${data['first_name']}<br>
+                last name ${data['last_name']}<br>
+                username ${data['username']}<br>
+                level ${data['level']}<br>
+                state_2fa ${data['state_2fa']}
+                <br>
+                <img src="${data['img_url']}" width=100px; alt="profile image">
+            `
+        document.getElementById('state_2fa').checked = data['state_2fa'];
+     }
+
+
+</script>
+</html>

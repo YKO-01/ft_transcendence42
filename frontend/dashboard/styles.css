@@ -1,0 +1,733 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
+	outline: none;
+}
+
+body, html {
+	height: 100%;
+	width: 100%;
+}
+
+body
+{
+	height: 100vh;
+	width: 100vw;
+	background-color: #020D14;
+}
+
+#root {
+	margin: 0 auto;
+	height: 100%;
+}
+
+.container 
+{
+	position: relative;
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	color: aliceblue;
+}
+
+.main {
+	display: flex;
+	flex: 6;
+	padding: 2rem;
+}
+
+.sidebar 
+{
+	position: relative;
+	flex: 1;
+	background: #E8F3EF;
+	color: #000000;
+}
+
+.modes {
+	/* background: #607565; */
+	flex: 3;
+	display: flex;
+	flex-direction: column;
+}
+
+#history {
+	/* background: #5ba2b4; */
+	flex: 1;
+	z-index: 2;
+}
+
+.header{
+	/* background: #377750; */
+	width: 100%;
+	padding: 0.5rem 2rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.header svg
+{
+	cursor: pointer;
+}
+.game-modes{
+	padding: 0.5rem 2rem;
+	/* background: #00be49; */
+	width: 100%;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.game-modes h1 {
+	font-family: "Orbitron", sans-serif;
+	margin-right: 0.8rem;
+}
+.title
+{
+	display: flex;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+
+.modes-cards
+{
+	height: 100%;
+	width: 100%;
+	
+	display: flex;
+	flex-direction: column;
+}
+
+.regular {
+	width: 100%;
+	height: 100%;
+	gap: 0.5rem;
+	display: flex;
+	margin-bottom: 1rem;
+}
+
+
+
+.mode-card {
+	flex: 1;
+	display: flex;
+	height: 100%;
+	border: solid 2px;
+	justify-content: center;
+	align-items: center;
+	user-select: none;
+	position: relative;
+}
+
+.tournament-ico {
+	position: absolute;
+	right: 4px;
+	bottom: 4px;
+}
+
+.cpu:hover {
+	background-color: #CE0025;
+}
+
+.player:hover {
+	background-color: #C1C500;
+}
+
+.ai:hover {
+	background-color: #091DC5;
+}
+
+.mode-card
+{
+	transition: 0.3s;
+}
+
+.mode-card svg {
+	position: absolute;
+	bottom: 8px;
+	right: 8px;
+	cursor: pointer;
+}
+
+.mode-card p {
+	font-family: "Orbitron", sans-serif;
+	font-size: 3rem;
+	letter-spacing: 4px;
+	/* background-color: #000000; */
+	padding: 0.2rem 1rem;
+}
+.cpu {
+	border-color: #CE0025;
+}
+.cpu p
+{
+	color: #CD0024;
+}
+
+
+
+.cpu span {
+	font-family: "Orbitron", sans-serif;
+	font-weight: bold;
+}
+
+.player {
+	border-color: #C1C500;
+}
+
+.player p
+{
+	color: #C0C400;
+}
+.player span {
+	font-family: "Orbitron", sans-serif;
+	font-weight: bold;
+}
+
+.ai {
+	border-color: #091DC5;
+}
+
+.ai p
+{
+	color: #091DC5;
+}
+.ai span {
+	font-family: "Orbitron", sans-serif;
+	font-weight: bold;
+}
+
+.tournament-mode
+{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(to right,#000000, #01352C);
+	border-radius: 4px;
+}
+.tournament-mode-card {
+	position: relative;
+	display: flex;
+	height: 100%;
+}
+
+.tournament-mode-card p {
+	font-family: "Orbitron", sans-serif;
+	font-size: 2.5rem;
+	letter-spacing: 5px;
+	color: #007F0C;
+	border: 2px solid #00B98D;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 5rem;
+}
+
+.tournament-text {
+	margin-left: 2rem;
+	display: flex;
+	align-items: start;
+	justify-content: space-between;
+	/* background-color: #007F0C; */
+	width: 100%;
+}
+
+.tournament-text h1 {
+	font-size: 2rem;
+	font-family: "Poppins", sans-serif;
+	padding: 1rem;
+}
+
+.tournament-text svg {
+	margin-top: 1rem;
+	margin-right: 1rem;
+	width: 120px;
+}
+
+.tournaments{
+	padding: 2rem;
+	z-index: 1;
+	margin: 0.5rem 2rem;
+	flex: 1;
+	border: 1px solid #383838;
+	background: rgba(54, 54, 54, 0.5);
+	border-radius: 12px;
+}
+
+.tournaments h1 {
+	letter-spacing: 2px;
+	font-size: 1.8rem;
+	margin-bottom: 2rem;
+	font-family: "Orbitron", sans-serif;
+}
+
+.tournament-mode button {
+	border: none;
+	font-family: "Orbitron", sans-serif;
+	background: #fff;
+	font-size: 1.7rem;
+	letter-spacing: 2px;
+	font-weight: bold;
+	padding: 0.5rem 4rem;
+	position: absolute;
+	bottom: 4px;
+	right: 4px;
+	cursor: pointer;
+	border-radius: 4px;
+	border: 2px solid #fff;
+	transition: 0.2s background;
+}
+
+.tournament-mode button:hover{
+	background: transparent;
+	color: #fff;
+}
+
+table {
+	width: 100%;
+}
+
+table th {
+	border-bottom: 1px solid #4A4A4A;
+	color: #C9C9C9;
+	font-weight: 500;
+	letter-spacing: 1px;
+	text-align: center;
+}
+ 
+tr.table-head {
+	min-width: 100%;
+	margin-bottom: 0.5rem;
+}
+
+.time, .players, .playing, .register-btn {
+	display: flex;
+	align-items: center;
+
+	/* background-color: #00B98D; */
+}
+
+.time svg, .players svg, .playing svg, .register-btn svg {
+	margin-right: 1rem;
+}
+
+.playing svg {
+	padding: 0.4rem;
+	border-radius: 4px;
+	background-color: #007f3b;
+}
+
+.register-btn svg
+{
+	padding: 0.4rem;
+	/* background-color: #00637f; */
+	cursor: pointer;
+	border-radius: 50%;
+}
+
+.register-btn svg:hover{
+	background-color: #4A4A4A;
+}
+
+.room-number 
+{
+	font-weight: bold;
+	margin-right: 1rem;
+	text-align: center;
+	display: inline-block;
+	background: #383838;
+	width: 64px;
+}
+
+table td {
+	text-align: start;
+	margin-bottom: 0.5rem;
+}
+
+
+#history {
+	width: 100%;
+	padding: 0.5rem 2rem;
+}
+
+
+.history-header .title {
+	display: flex;
+	align-items: center;
+}
+
+
+.history-header .title svg
+{
+	margin-left: 1rem;
+}
+
+#history h1
+{
+	font-family: "Orbitron", sans-serif;
+	font-weight: 300;
+}
+
+#history h2
+{
+	font-family: "Orbitron", sans-serif;
+	color: #C5C5C5;
+	font-weight: 400;
+	letter-spacing: 2px;
+}
+
+
+.today, .today h2, .yesterday, .yesterday h2, .custom, .custom h2
+{
+	margin-bottom: 2rem;
+}
+
+#history input
+{
+	margin-bottom: 2rem;
+}
+.history-header
+{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+
+.history-header p
+{
+	color: #9f9f9f;
+	border-bottom: 1px solid #08594f;
+	cursor: pointer;
+}
+
+.avatar
+{
+	height: 32px;
+	border-radius: 4px;
+	width: 32px;
+	background-color: #ffffff;
+}
+
+
+
+.result {
+	display: flex;
+	justify-content: space-between;
+	/* padding: 0.2rem 2rem; */
+	min-width: 80px;
+}
+
+.status {
+	border-right: solid 4px;
+	height: 100%;
+	padding-right: 1rem;
+}
+
+.win {
+	border-color: #007F0C;
+}
+
+.loss
+{
+	border-color: #EB063D;
+}
+
+.winning-side, .losing-side {
+	font-weight: 500;
+	font-size: 1.2rem;
+}
+
+.winning-side {
+	color: #007F0C;
+}
+
+.losing-side {
+	color: #EB063D;
+}
+
+.game-result{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	margin-bottom: 0.5rem;
+	justify-content: space-between;
+}
+
+.status
+{
+	font-size: 1.2rem;
+	height: 100%;
+}
+
+.result span {
+	margin: 0 2rem;
+	/* background-color: #00637f; */
+	text-align: center;
+}
+
+
+.sidebar-header
+{
+	width: 100%;
+	display: flex;
+	padding: 0 1rem;
+	align-items: center;
+	justify-content: space-between;
+	z-index: 9999;
+}
+
+.user-info, .friend-info {
+	display: flex;
+	align-items: center;
+
+}
+
+.user-info {
+	padding-top: 1rem;
+	margin-bottom: 1.5rem;
+}
+
+.user-info h1 {
+	font-size: 1.5rem;
+	font-weight: 500;
+}
+
+.user-avatar
+{
+	height: 48px;
+	border-radius: 4px;
+	width: 48px;
+	/* background-color: #08594f; */
+	border: 2px solid  #08594f;
+	margin-right: 1rem;
+}
+
+.sidebar-header svg{
+	cursor: pointer;
+}
+
+.sidebar-header svg:hover {
+	background-color: #cae5e2;
+	border-radius: 4px;
+}
+
+.connectivity-status
+{
+	position: absolute;
+	box-shadow: 0 0 2px;
+	top: -6px;
+	right: -8px;
+	height: 12px;
+	width: 12px;
+	border-radius: 50%;
+	background-color: #00cc14;
+}
+
+.friends-header
+{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.5rem 1rem;
+}
+
+.friends-header p {
+	font-size: 1.2rem;
+	font-weight: 500;
+}
+
+.friends-header p span {
+	display: inline-block;
+	color: #5e5e5e;
+	font-weight: 300;
+	margin-left: 0.rem;
+}
+
+.friends-header svg {
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.friends-header svg:hover {
+	/* background-color: #c3ece7; */
+	border-radius: 4px;
+}
+
+
+.friend-avatar
+{
+	position: relative;
+	/* overflow: hidden; */
+	height: 32px;
+	border-radius: 4px;
+	width: 32px;
+	border: 2px solid  #08594f;
+	margin-right: 1rem;
+}
+
+.friend {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 0.4rem;
+}
+
+.friend-info h1 {
+	color: #46504B;
+	font-weight: 300;
+	font-size: 1.1rem;
+}
+
+.friends-list {
+	padding: 0.5rem 1rem;
+}
+
+.friend svg {
+	background-color: #062E00;
+	border-radius: 4px;
+	padding: 4px;
+	cursor: pointer;
+}
+
+.friend svg:hover {
+	background-color: #000200;
+}
+
+.menu{
+	user-select: none;
+	left: 0;
+	right: 0;
+	z-index: 20;
+	background-color: #E8F3EF;
+	display: none;
+	position: absolute;
+}
+
+
+.menu-link{
+	/* border-bottom: 1px solid #E8F3EF; */
+	display: flex;
+	align-items: center;
+	padding: 0.7rem;
+	cursor: pointer;
+	
+}
+
+.menu-link:hover {
+	background: #76cccf;
+	color: #fff;
+}
+
+.menu-link svg {
+	margin-right: 1rem;
+	display: flex;
+}
+
+.menu-link p
+{
+	font-size: 1.1rem;
+	color: #051b28;
+}
+
+.sidebar-overlay, .container-overlay {
+	display: none;
+	background-color: rgba(3, 16, 23, 0.9);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	z-index: 19;
+}
+
+
+
+.container-overlay
+{
+	display: none;
+	background-color: rgba(3, 16, 23, 0.5);
+}
+
+
+.add-friend-modal {
+	height: 768px;
+    width: 1024px;
+    max-width: 1024px;
+    z-index: 99999;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #010917;
+	border: 2px solid #017a78;
+	display: none;
+	flex-direction: column;
+	align-items: center;
+
+}
+
+.add-friend-modal h1
+{
+	margin: 4rem 0;
+}
+
+.add-friend-modal input {
+	padding: 1.2rem;
+	font-size: 1.2rem;
+	width: 60%;
+	height: 36px;
+}
+
+
+.add-friend-suggestions{
+	margin-top: 2rem;
+	width: 60%;
+	display: flex;
+	flex-direction: column;
+	/* background: #00B98D; */
+}
+
+.add-friend
+{
+	/* border-bottom: 1px solid #fff; */
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	padding-bottom: 1rem;
+	margin-bottom: 0.2rem;
+	/* background-color: #587f81; */
+}
+
+.add-friend button {
+	cursor: pointer;
+	color: #c6e1e0;
+	padding: 0.2rem 1.4rem;
+	font-weight: 400;
+	letter-spacing: 1px;
+	font-size: 1rem;
+	background: transparent;
+	border: 1px solid #d8d8d8;
+	border-radius: 2px;
+}
+
+.add-friend button:hover {
+	background: #a2c6c5;
+	color: #081212;
+	font-weight: 500;
+}
+
+.add-friend-info{
+	display: flex;
+}
+
+.add-friend-modal svg {
+	position: absolute;
+	right: 8px;
+	top: 8px;
+	cursor: pointer;
+}

@@ -1,0 +1,199 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
+}
+
+body, html {
+	height: 100%;
+	width: 100%;
+}
+
+body
+{
+	height: 100vh;
+	width: 100vw;
+	background-color: #020D14;
+}
+
+#root {
+	margin: 0 auto;
+	height: 100%;
+	display: grid;
+	grid-template-rows: 80px 1fr auto;
+}
+
+.logo-container
+{
+	width: 100%;
+	margin: 12px auto;
+}
+
+.logo {
+	margin-left: 320px;
+	width: 180px;
+}
+
+.signup-logo
+{
+	position: absolute;
+	bottom: 0px;
+	left: 320px;
+}
+
+.light 
+{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 120px;
+	width: 120px;
+	background: linear-gradient(#B56D00, #00FF66);
+	filter: blur(120px);
+}
+
+form {
+	margin: 0 auto;
+	justify-content: center;
+	height: 80%;
+	max-width: 480px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+
+input {
+	font-weight: 500;
+	border-radius: 4px;
+	font-size: 1rem;
+	border: 1px solid;
+	width: 340px;
+	margin-bottom: 1rem;
+	height: 40px;
+	background: transparent;
+	border-color: rgb(26, 220, 26);
+	color: #ffffff;
+	padding-left: 1rem;
+}
+
+input::placeholder {
+	color: #eeeeee;
+	font-weight: 200;
+}
+
+input:focus
+{
+	outline: none !important;
+    border:1px solid rgb(255, 204, 0);
+}
+
+.forgot-pass
+{
+	width: 100%;
+	color: #fff;
+	text-align: end;
+	font-size: 0.9rem;
+	margin-bottom: 1rem;
+}
+
+.submit-btn
+{
+	width: 100%;
+	padding-bottom: 1.5rem;
+	margin-bottom: 1rem;
+	margin-top: 1rem;
+}
+
+.submit-btn button
+{
+	transition: 0.3s;
+	border: none;
+	background: #159800;
+	border: #159800 1px solid;
+	width: 100%;
+	color: #fff;
+	font-weight: bold;
+	font-size: 1rem;
+	padding: 0.5rem 1rem;
+	border-radius: 4px;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.submit-btn button:hover
+{
+	background: #0d6300;
+	border: #0d6300 1px solid;
+}
+
+.submit-btn button p
+{
+	margin-right: 0.5rem;
+}
+
+.signin-methods
+{
+	margin-top: 1rem;
+	margin-bottom: 0.8rem;
+	width: 100%;
+	color: #fff;
+}
+
+
+.signin-method
+{
+	overflow: hidden;
+	position: relative;
+	border: 1px solid #fff;
+	margin-bottom: 1rem;
+	padding: 0.5rem 1rem;
+	border-radius: 4px;
+	display : flex;
+	user-select: none;
+}
+
+.signin-method:hover
+{
+	transition: 0.3s;
+	border-color: #159800;
+	color: #159800;
+}
+
+.signin-method img {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	height: 100%;
+}
+
+.signin-method p {
+	font-weight: 400;
+	user-select: none;
+}
+
+.signup-cta
+{
+	color: #fff;
+}
+
+.signup-cta a
+{
+	font-weight: 500;
+	margin-left: 0.5rem;
+	color: #159800;
+}
+
+.ping-pong {
+	position: absolute;
+	font-family: "Orbitron", sans-serif;
+	bottom: 12px;
+	right: 320px;
+	font-weight: bolder;
+	font-size: 48px;
+ 	-webkit-text-stroke: 2px #51b500;
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <p></p>
+    <form id="loginForm">
+        <input type="text" name="email" placeholder="email" required>
+        <br>
+        <input type="password" name="password" placeholder="Password" required>
+        <br>
+        <input type="submit" value="Login">
+        <br>
+        <input type="button" value="42" id="login42Button">
+        <br>
+    </form>
+</body>
+<script>
+    document.getElementById('login42Button').addEventListener('click', function() {
+        // Redirect to the 42 intra login URL
+        window.location.href = 'http://127.0.0.1:8000/oauth/login42/';
+    });
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    let form = document.getElementById('loginForm');
+    let msg = document.querySelector('p');
+    let csrftoken = getCookie('csrftoken');
+    console.log(csrftoken)
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        let formData = new FormData(form);
+        let data = {
+            username: formData.get('username'),
+            password: formData.get('password')
+        };
+
+        fetch('http://127.0.0.1:8000/api/login/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken // Include the CSRF token in the request headers
+            },
+            body: JSON.stringify(data),
+            credentials: 'include'
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Response Data:', result);
+
+            if (result.jwt) {
+                msg.textContent = 'Login successful!';
+                msg.style.color = 'green';
+            } else {
+                msg.textContent = 'Login failed: ' + (result.detail || 'Invalid credentials');
+                msg.style.color = 'red';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            msg.textContent = 'An error occurred. Please try again.';
+            msg.style.color = 'red';
+        });
+    });
+    
+</script>
+
+</html>

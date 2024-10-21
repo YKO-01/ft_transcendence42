@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="styles.css" />
+        <title>ft_transcendance - Tournament</title>
+    </head>
+    <body>
+        <div id="root">
+            <div class="container">
+				<div class="container-overlay"></div>
+                <div class="main">
+                    <div class="modes">
+                        <div class="header">
+                            <a href="signin.html"
+                                ><img
+                                    src="./assets/logo.svg"
+                                    class="logo"
+                                    alt="ping pong logo"
+                            /></a>
+                            <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M15 18H9C9 18.7956 9.31607 19.5587 9.87868 20.1213C10.4413 20.6839 11.2044 21 12 21C12.7956 21 13.5587 20.6839 14.1213 20.1213C14.6839 19.5587 15 18.7956 15 18Z"
+                                    stroke="white"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                                <path
+                                    d="M19.38 14.38C19.5768 14.577 19.7329 14.8109 19.8392 15.0683C19.9456 15.3257 20.0002 15.6015 20 15.88C20 16.4423 19.7766 16.9815 19.3791 17.3791C18.9815 17.7766 18.4423 18 17.88 18H6.12C5.55774 18 5.01851 17.7766 4.62093 17.3791C4.22336 16.9815 4 16.4423 4 15.88C3.99976 15.6015 4.05438 15.3257 4.16077 15.0683C4.26715 14.8109 4.4232 14.577 4.62 14.38L6 13V9C6 7.4087 6.63214 5.88258 7.75736 4.75736C8.88258 3.63214 10.4087 3 12 3C13.5913 3 15.1174 3.63214 16.2426 4.75736C17.3679 5.88258 18 7.4087 18 9V13L19.38 14.38Z"
+                                    stroke="white"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar">
+					<div class="sidebar-overlay"></div>
+					<div class="sidebar-header">
+						<div class="user-info">
+							<div class="user-avatar"></div>
+							<h1>NoobMaster69</h1>
+						</div>
+						<svg class="menu-btn" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M6 9L12 15L18 9" stroke="#020F10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>							
+					</div>
+					<ul class="menu">
+						<li class="menu-link">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#051b28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+							<p>My Profile</p>						
+						</li>
+						<li class="menu-link">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#051b28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+							<p>Settings</p>
+						</li>
+						<li class="menu-link">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#051b28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+							<p>Log out</p>
+						</li>
+					</ul>
+					<div class="friends">
+						<div class="friends-header">
+							<p>Friends <span>1/4</span></p>
+							<svg class="search-friend-btn" width="32" height="32" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M13.3333 17.5V15.8333C13.3333 14.9493 12.9821 14.1014 12.3569 13.4763C11.7318 12.8512 10.884 12.5 9.99992 12.5H4.16659C3.28253 12.5 2.43468 12.8512 1.80956 13.4763C1.18444 14.1014 0.833252 14.9493 0.833252 15.8333V17.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M7.08333 9.16667C8.92428 9.16667 10.4167 7.67428 10.4167 5.83333C10.4167 3.99238 8.92428 2.5 7.08333 2.5C5.24238 2.5 3.75 3.99238 3.75 5.83333C3.75 7.67428 5.24238 9.16667 7.08333 9.16667Z" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M16.6667 6.66675V11.6667" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M19.1667 9.16675H14.1667" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>								
+						</div>
+						<div class="friends-list">
+							<div class="friend">
+								<div class="friend-info">
+									<div class="friend-avatar">
+										<div class="connectivity-status">
+										</div>
+									</div>
+									<h1>Ahmed Anogot</h1>
+								</div>
+								<svg width="32" height="32" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M6 2.5V9.5" stroke="#18AD00" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M2.5 6H9.5" stroke="#18AD00" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+							</div>
+							<div class="friend">
+								<div class="friend-info">
+									<div class="friend-avatar"></div>
+									<h1>Amine l7atba</h1>
+								</div>
+								<svg width="32" height="32" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M6 2.5V9.5" stroke="#18AD00" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M2.5 6H9.5" stroke="#18AD00" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+							</div>
+							<div class="friend">
+								<div class="friend-info">
+									<div class="friend-avatar"></div>
+									<h1>Hamza</h1>
+								</div>
+								<svg width="32" height="32" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M6 2.5V9.5" stroke="#18AD00" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M2.5 6H9.5" stroke="#18AD00" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+							</div>
+							<div class="friend">
+								<div class="friend-info">
+									<div class="friend-avatar"></div>
+									<h1>Yassine</h1>
+								</div>
+								<svg width="32" height="32" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M6 2.5V9.5" stroke="#18AD00" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M2.5 6H9.5" stroke="#18AD00" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+							</div>
+						</div>
+					</div>
+                </div>
+				<div class="add-friend-modal">
+					<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+					<h1>Discover New Friends</h1>
+					<input type="text" placeholder="Search friend">
+					<div class="add-friend-suggestions">
+						<div class="add-friend">
+							<div class="add-friend-info">
+								<div class="friend-avatar"></div>
+								<p>Amine l7tba</p>
+							</div>
+							<button>Send</button>
+						</div>
+						<div class="add-friend">
+							<div class="add-friend-info">
+								<div class="friend-avatar"></div>
+								<p>Hamza l7tba</p>
+							</div>
+							<button>Send</button>
+							</div>
+						</div>	
+						</div>
+						
+					</div>
+					
+				</div>
+            </div>
+        </div>
+		<script src="./tournament.js"></script>
+    </body>
+</html>

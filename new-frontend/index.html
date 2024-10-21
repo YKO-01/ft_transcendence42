@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shared Layout Example</title>
+  <link rel="stylesheet" href="./Auth/styles/style.css">
+  <script src="./Auth/Components/input.js" type="module" defer></script>
+  <script src="./Auth/Components/btn.js" type="module" defer></script>
+  <script src="./Auth/Components/authMethod.js" type="module" defer></script>
+  <style>
+	body {
+		background: #000;
+		color: white;
+	}
+  </style>
+</head>
+<body>
+  <div id="app">
+	<div id="main">
+		
+	</div>
+	<div id="content">
+		
+	</div>
+	<auth-input type="password" placeholder="Enter your password"></auth-input>
+	<auth-input type="email" placeholder="Enter email"></auth-input>
+	<auth-btn title="Sign in" alt="signin" ></auth-btn>
+	<auth-btn title="Sign up" alt="signup" ></auth-btn>
+	<div class="signin-methods">
+		<auth-method logo-src="./Auth/Assets/42-ico.svg" method="Intra" ></auth-method>
+	</div>
+	
+  </div>
+  <script src="app.js"></script>
+  
+</body>
+</html>

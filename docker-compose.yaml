@@ -1,0 +1,71 @@
+version: '3.9'
+
+networks:
+  transcendence:
+    name: transcendence
+    driver: bridge
+
+services:
+  db:
+    image: postgres:latest
+    container_name: db
+    environment:
+      POSTGRES_DB: transcendence
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: pfister
+    restart: always
+    shm_size: 128mb
+    networks:
+      - transcendence
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "443:443"
+    depends_on:
+      - backend
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+      - ./frontend:/var/www/html/frontend
+      - ./media:/var/www/html/media
+    networks:
+      - transcendence
+    restart: always
+
+  backend:
+    build:
+      context: ./backend
+    image: backend:latest
+    container_name: backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/app
+      - ./media:/app/media
+    restart: always
+    networks:
+      - transcendence
+
+# volumes:
+#   data-backend:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: ./backend
+#   data-frontend:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: /Users/hkasbaou/data/frontend
+#   data-media:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: /Users/hkasbaou/data/media
