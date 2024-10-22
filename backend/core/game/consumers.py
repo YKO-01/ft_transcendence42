@@ -13,8 +13,8 @@ class GameRoomConsumer(AsyncWebsocketConsumer):
 
     async def connect(self):
         raw_room_name = self.scope['url_route']['kwargs']['match_id']
-        user = self.scope['user']
-        print('user ', user, ' nickname ', user.nickname)
+        self.user = self.scope['user']
+        print('user ', self.user, ' nickname ', self.user.nickname)
         self.room_name = self.get_room_name(raw_room_name)
         self.room_group_name = f'game_{self.room_name}'
 
@@ -26,7 +26,7 @@ class GameRoomConsumer(AsyncWebsocketConsumer):
                 'ball_position': {'x': 400, 'y': 300},
                 'left_paddle_y': 250,
                 'right_paddle_y': 250,
-                'nickname': user.nickname
+                'nickname_one': self.user.nickname
             }
 
         self.rooms[self.room_group_name]['players'] += 1
@@ -39,7 +39,8 @@ class GameRoomConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_send(
             self.room_group_name,
             {
-                'type': 'send_game_state'
+                'type': 'send_game_state',
+                'nickname_two': self.user.nickname
             }
         )
 
@@ -63,7 +64,7 @@ class GameRoomConsumer(AsyncWebsocketConsumer):
             await self.handle_ball_position(data['ball_position'])
         elif 'score_update' in data:
             await self.handle_score_update(data['score_update'])
-        elif 'winner' in data:
+        elif 'winner_data' in data:
             await self.set_winner(data['winner_data'])
 
     async def handle_paddle_move(self, paddle_move):
@@ -120,6 +121,7 @@ class GameRoomConsumer(AsyncWebsocketConsumer):
         }))
 
     async def send_game_state(self, event):
+        nickname_two = event['nickname_two']
         await self.send(text_data=json.dumps({
             'type': 'game_state',
             'game_state': {
@@ -129,16 +131,19 @@ class GameRoomConsumer(AsyncWebsocketConsumer):
                 'ball_position': self.rooms[self.room_group_name]['ball_position'],
                 'left_paddle_y': self.rooms[self.room_group_name]['left_paddle_y'],
                 'right_paddle_y': self.rooms[self.room_group_name]['right_paddle_y'],
-                'nickname': self.rooms[self.room_group_name]['nickname']
+                'nickname_one': self.rooms[self.room_group_name]['nickname_one'],
+                'nickname_two': nickname_two
             }
         }))
 
     @database_sync_to_async
-    def set_winner(self, event):
+    def set_winner(self, winner_data):
         from tournament.models import Match
         match_id = winner_data['match_id']
         winner = winner_data['winner']
         match = Match.objects.get(id=match_id)
+        print('winner ', winner)
+        print('match ', match)
         match.set_winner(winner)
 
         

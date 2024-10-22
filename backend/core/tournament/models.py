@@ -91,7 +91,16 @@ class Room(models.Model):
         winners = [match.winner for match in previous_matches]
         if len(winners) % 2 != 0:
             winners.append(None)
-        return self.start_matches(winners)
+        return self.start_matche_winners(winners)
+    
+    def start_matche_winners(self, winners):
+        matches = []
+        for i in range(0, len(winners), 2):
+            player1 = winners[i]
+            player2 = winners[i+1]
+            match = Match.objects.create(room=self, player1=player1, player2=player2)
+            matches.append(match)
+        return matches
 
 
 class Match(models.Model):
@@ -106,7 +115,10 @@ class Match(models.Model):
         return f'{self.player1} vs {self.player2}'
     
     def set_winner(self, winning_player):
-        if winning_player not in [self.player1, self.player2]:
-            raise ValueError("The winning player must be one of the players in the match.")
-        self.winner = winning_player
+        if winning_player == self.player1.nickname:
+            winnerPlayer = self.player1
+        elif winning_player == self.player2.nickname:
+            winnerPlayer = self.player2
+        print('winnerPlayer ', winnerPlayer)
+        self.winner = winnerPlayer
         self.save()

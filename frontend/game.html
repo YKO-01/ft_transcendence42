@@ -1,273 +1,87 @@
-let collecgraph = document.querySelector('.collegraph');
-let players = document.querySelectorAll('.player');
-let game = document.querySelector('.game');
-let container = document.querySelector('.container');
-
-class RoomManger {
-    constructor() {
-        this.socket = null;
-        this.rooms = [];
-        this.current_user = null;
-        this.access_token = localStorage.getItem('access_token');
-        this.init();
-    }
-    init() {
-        this.connectSocket();
-        this.setupEventListeners();
-        this.checkAuth();
-    }
-
-    connectSocket() {
-        this.socket = new WebSocket(`ws://localhost:8000/ws/rooms/?token=${this.access_token}`);
-        this.socket.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            console.log(data.type);
-            if (data.type === 'room_update') {
-                this.updateRooms(data.rooms);
-            }
-            if (data.type === 'match_update') {
-                this.updateMatches(data.matches);
-            }
-            if (data.type === 'error') {
-                showError(data.message);
-            }
-        };
-    }
-
-    setupEventListeners() {
-        document.addEventListener('click', (event) => {
-            if (event.target.classList.contains('join-btn')) {
-                const roomId = event.target.getAttribute('data-room');
-                this.joinRoom(roomId);
-            }
-            if (event.target.classList.contains('cancel-btn')) {
-                const roomId = event.target.getAttribute('data-room');
-                this.leaveRoom(roomId);
-            }
-            if (event.target.classList.contains('create-btn')) {
-                this.createRoom();
-            }
-        });
-    }
-
-    updateRooms(rooms) {
-        this.rooms = rooms;
-        const roomContent = document.getElementById('rooms-container');
-        roomContent.innerHTML = '';
-
-        if (rooms.length === 0) {
-            this.createRoomButton(roomContent);
-        } else {
-            rooms.forEach(room => this.createRoomElement(room, roomContent));
-            if (rooms.every(room => room.is_full)) {
-                this.createRoomButton(roomContent);
-            }
-        }
-    }
-
-    createRoomElement(room, roomContent) {
-        const roomDiv = document.createElement('div');
-        roomDiv.classList.add('room');
-        roomDiv.innerHTML = `
-            <h2>${room.name}</h2>
-            <ul>
-                ${room.players.map(player => `
-                    <li>
-                        ${player.nickname}
-                        ${player.is_current_user ? `<button class="cancel-btn" data-room="${room.id}">leave</button>` : ``}
-                    </li>`).join('')}
-            </ul>
-            ${room.is_full ? `` : `<button class="join-btn" data-room="${room.id}">Join</button>`}
-        `;
-        if (room.is_full && room.players.some(player => player.is_current_user))
-        {
-            this.getMatchs(room);
-            collecgraph.style.display = 'block';
-            container.style.display = 'none';
-        } else {
-            collecgraph.style.display = 'none';
-        }
-        roomContent.appendChild(roomDiv);
-    }
-
-    createRoomButton(roomContent) {
-        const btncreate = document.createElement('button');
-        btncreate.textContent = 'Create Room';
-        btncreate.classList.add('create-btn');
-        roomContent.appendChild(btncreate);
-    }
-    
-    joinRoom(roomId) {
-        const InputNickname = document.createElement('input');
-        InputNickname.setAttribute('type', 'text');
-        InputNickname.setAttribute('placeholder', 'Enter your nick name');
-        InputNickname.setAttribute('name', 'nickname');
-        InputNickname.setAttribute('id', 'nickname');
-        
-        const SubmitButton = document.createElement('button');
-        SubmitButton.textContent = 'Submit';
-        SubmitButton.setAttribute('type', 'submit');
-        SubmitButton.setAttribute('id', 'submit');
-
-        document.body.appendChild(InputNickname);
-        document.body.appendChild(SubmitButton);
-
-        SubmitButton.addEventListener('click', () => {
-            const nickname = InputNickname.value;
-            this.sendSocketMessage({
-                action: 'join',
-                room_id: roomId,
-                nickname: nickname,
-                user: this.current_user
-            });
-            InputNickname.remove();
-            SubmitButton.remove();
-        });
-    }
-
-    leaveRoom(roomId) {
-        this.sendSocketMessage({
-            action: 'leave',
-            room_id: roomId
-        });
-    }
-
-    sendSocketMessage(data) {
-        if (this.socket && this.socket.readyState === WebSocket.OPEN) {
-            this.socket.send(JSON.stringify(data));
-        }
-    }
-    async createRoom() {
-        try {
-            let response = await fetch('http://localhost:8000/api/rooms/create-room/', {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                    'Authorization': `Bearer ${this.access_token}`,
-                }
-            });
-            response = await handleAuthResponse(response, this.createRoom);
-            if (response.ok) {
-                const data = await response.json();
-                if (data.success)
-                    this.joinRoom(data.room_id);
-                else
-                    console.error(data.message);
-            }
-        } catch (error) {
-            window.location.href = 'https://127.0.0.1/frontend/signin/signin.html';
-        }
-    }
-    async checkAuth() {
-        try {
-            let response = await fetch('http://127.0.0.1:8000/api/rooms/rooms-list/', {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    'Authorization': `Bearer ${this.access_token}`,
-                }
-            });
-            response = await handleAuthResponse(response, this.checkAuth);
-            if (response.ok) {
-                const data = await response.json();
-                this.updateRooms(data.rooms);
-                this.current_user = data.current_user;
-            }
-        } catch (error) {
-            window.location.href = 'https://127.0.0.1:443/frontend/signin/signin.html';        }
-    }
-
-    async getMatchs(room) {
-        try {
-            let response = await fetch(`http://localhost:8000/api/rooms/${room.id}/`, {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    'Authorization': `Bearer ${this.access_token}`,
-                }
-            });
-            response = await handleAuthResponse(response, this.getMatchs);
-            if (response.ok) {
-                const data = await response.json();
-                // localStorage.setItem('roomID', room.id);
-                this.updateMatches(data.matches, data.match_id);
-            }
-        } catch (error) {
-            window.location.href = 'https://127.0.0.1:443/frontend/signin/signin.html';
-        } 
-    }
-
-    updateMatches(matches, matchID) {
-        console.log(matches);
-        let i = 0;
-        matches.forEach(match => {
-            players[i].textContent = match.player1;
-            players[i+1].textContent = match.player2;
-            i+=2;
-        }
-    );
-    setTimeout(() => {
-        // let final = document.getElementsByClassName('final')[0];
-        // final.textContent = players[0].textContent + " vs " + players[1].textContent;
-        game.style.display = 'flex';
-        collecgraph.style.display = 'none';
-        // this.sendSocketMessage({
-        //     action: 'close'
-        // });
-        new ManageGameAttachment(matchID);
-        // matches.forEach(match => {
-        //     this.fetchMatches(match.id);
-        //     // if (match.player1 === this.current_user.nickname || match.player2 === this.current_user.nickname)
-        //     // new ManageGameAttachment(match.id);
-        
-        // });
-    }, 5000);
-    }
-
-    async fetchMatches(matchID) {
-        try {
-            let response = await fetch(`http://localhost:8000/api/rooms/matches/${matchID}`, {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    'Authorization': `Bearer ${this.access_token}`,
-                }
-            });
-            response = await handleAuthResponse(response, this.fetchMatches);
-            if (response.ok) {
-                const data = await response.json();
-                console.log(data);
-                // new ManageGameAttachment(data.match);
-            }
-        } catch (error) {
-            window.location.href = 'https://127.0.0.1/frontend/signin/signin.html';
-        }
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    .game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    /* display: none; */
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    new RoomManger();
-});
-
-function selectWinner(match) {
-    let round = match.parentElement;
-    let matches = round.getElementsByClassName('match');
-    for (let i = 0; i < matches.length; i++) {
-        matches[i].classList.remove('winner');
-    }
-    
-    match.classList.add('winner');
-
-    if (round.children.length > 1) {
-        let final = document.getElementsByClassName('final')[0];
-        final.textContent = match.textContent + " vs ";
-    }
+.game #player1{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
 }
 
+.game #player2{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+}
 
-// game logic
+.game #gameCanvas {
+    border: 2px solid #fff;
+}
+.game #scoreBoard {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+}
+.game #waitingMessage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    text-align: center;
+}
+.game #roomInfo {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+}
+.game #resetButton {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+    </style>
+</head>
+<body>
+    <div class="game">
+        <div id="players">
+            <span id="player1">player 1</span>
+            <span id="player2">player 2</span>
+        </div>
+        <div id="scoreBoard">
+            <span id="leftScore">0</span> - <span id="rightScore">0</span>
+        </div>
+        <canvas id="gameCanvas" width="800" height="400"></canvas>
+        <div id="waitingMessage">Waiting for another player...</div>
+        <div id="winnerinfo">Winer Is: <span id ="winner"></span></div>
+        <div id="roomInfo">Room: <span id="roomName"></span></div>
+        <button id="resetButton">Reset Game</button>
 
-class ManageGameAttachment {
+    </div>
+    <script>
+        class ManageGameAttachment {
     constructor(matchID) {
         this.access_token = localStorage.getItem('access_token');
         console.log(matchID);
@@ -403,6 +217,7 @@ class ManageGameAttachment {
         this.ball.y = gameState.ball_position.y;
         this.leftPaddle.score = gameState.left_score;
         this.rightPaddle.score = gameState.right_score;
+        console.log(gameState);
         this.updateScore();
 
         if (gameState.players === 1) {
@@ -415,10 +230,10 @@ class ManageGameAttachment {
             this.isPlayerOne = true;
             this.gameStarted = true;
             const playerMessage = this.leftPlayer ? "You are Player 1 (Left Paddle)" : "You are Player 2 (Right Paddle)";
-            this.player1.textContent = gameState.nickname_one
+            this.player1.textContent = gameState.nickname_one;
             this.player2.textContent = gameState.nickname_two;
             document.getElementById('roomInfo').innerHTML += `<br>${playerMessage}`;
-            this.gameLoop();
+            // this.gameLoop();
         }
     }
 
@@ -465,14 +280,13 @@ class ManageGameAttachment {
         console.log(this.leftPaddle.score, this.rightPaddle.score);
         if (!this.gameStarted || this.leftPaddle.score >= 5 || this.rightPaddle.score >= 5) {
             if (this.leftPaddle.score >= 5)
-                this.winner = this.player1.textContent;
+                this.winner = "left";
             else if (this.rightPaddle.score >= 5)
-                this.winner = this.player2.textContent;
+                this.winner = "right";
             if (this.winner) {
                 document.getElementById('winner').textContent = this.winner;
-                this.sendWinner();
-                // game.style.display = 'none';
-                // collecgraph.style.display = 'block';
+                game.style.display = 'none';
+                collecgraph.style.display = 'block';
                 // localStorage.getItem('roomID');
                 // fetch_on_next_around(localStorage.getItem('roomID'));
             }
@@ -636,25 +450,7 @@ class ManageGameAttachment {
 
 
 }
-
-async function fetch_on_next_around(roomID) {
-    try {
-        let response = await fetch(`http://localhost:8000/api/rooms/next_round/${roomID}`, {
-            method: 'GET',
-            credentials: 'include',
-            headers: {}
-        });
-        response = await handleAuthResponse(response, fetch_on_next_around);
-        if (response.ok) {
-            const data = await response.json();
-            console.log(data);
-        }
-    } catch (error) {
-        window.location.href = 'https://127.0.0.1/frontend/signin/signin.html';
-    }
-}
-
-
-
-// Usage
-// const game = new ManageGameAttachment('your_match_id_here');
+new ManageGameAttachment(1);
+    </script>
+</body>
+</html>

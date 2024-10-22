@@ -31,6 +31,7 @@ def next_round_matches(request, room_id):
     room = Room.objects.get(id=room_id)
     if room:
         matches = room.create_next_round_matches()
+        print('matches :', matches, flush=True)
         return JsonResponse({
             'success': True,
             'message': 'Next round matches created',
