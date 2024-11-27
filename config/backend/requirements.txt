@@ -1,0 +1,13 @@
+Django==5.1
+pyotp
+PyJWT
+qrcode
+daphne
+pillow
+requests
+channels
+psycopg2-binary
+django-prometheus
+django-cors-headers
+djangorestframework
+djangorestframework-simplejwt

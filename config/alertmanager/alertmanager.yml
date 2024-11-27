@@ -1,0 +1,14 @@
+route:
+  receiver: 'email'
+  repeat_interval: 4h
+  group_by: [ alertname ]
+
+
+receivers:
+  - name: 'email'
+    email_configs:
+      - smarthost: 'smtp.gmail.com:587'
+        auth_username: 'amine0x01@gmail.com'
+        auth_password: "kmnc vbss gcac upht"
+        from: 'alertmanager@mail.com'
+        to: 'aminedev01@gmail.com'

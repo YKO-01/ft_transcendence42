@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ping Pong Tournament Rooms</title>
+    <link rel="stylesheet" href="rooms.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Ping Pong Tournament Rooms</h1>
+        <div id="rooms-container"></div>
+        <div id="matches-container"></div>
+    </div>
+    <div class="collegraph">
+        <h1>Calligrapher Tournament</h1>
+        <p>Welcome to the prestigious Calligrapher Tournament featuring four talented artists competing for the title of Master Calligrapher.</p>
+
+        <div class="tournament-bracket">
+            <div class="round">
+                <div class="match player" onclick="selectWinner(this)">Player 1</div>
+                <div class="match player" onclick="selectWinner(this)">Player 2</div>
+            </div>
+            <div class="round">
+                <div class="match final" onclick="selectWinner(this)">Final</div>
+            </div>
+            <div class="round">
+                <div class="match player" onclick="selectWinner(this)">Player 3</div>
+                <div class="match player" onclick="selectWinner(this)">Player 4</div>
+            </div>
+        </div>
+
+        <!-- <h2>Players</h2>
+        <div class="players">
+            <div class="player-card">
+                <img src="/placeholder.svg?height=100&width=100" alt="Player 1">
+                <h3>Sophia Lee</h3>
+                <p>Specializes in Chinese calligraphy</p>
+            </div>
+            <div class="player-card">
+                <img src="/placeholder.svg?height=100&width=100" alt="Player 2">
+                <h3>Ahmed Hassan</h3>
+                <p>Master of Arabic calligraphy</p>
+            </div>
+            <div class="player-card">
+                <img src="/placeholder.svg?height=100&width=100" alt="Player 3">
+                <h3>Emma Thompson</h3>
+                <p>Expert in Western calligraphy</p>
+            </div>
+            <div class="player-card">
+                <img src="/placeholder.svg?height=100&width=100" alt="Player 4">
+                <h3>Hiroshi Tanaka</h3>
+                <p>Skilled in Japanese calligraphy</p>
+            </div>
+        </div> -->
+    </div>
+    <!-- game  -->
+    <div class="game">
+        <div id="players">
+            <span id="player1">player 1</span>
+            <span id="player2">player 2</span>
+        </div>
+        <div id="scoreBoard">
+            <span id="leftScore">0</span> - <span id="rightScore">0</span>
+        </div>
+        <canvas id="gameCanvas" width="800" height="400"></canvas>
+        <div id="waitingMessage">Waiting for another player...</div>
+        <div id="winnerinfo">Winer Is: <span id ="winner"></span></div>
+        <div id="roomInfo">Room: <span id="roomName"></span></div>
+        <button id="resetButton">Reset Game</button>
+    </div>
+    <script src="refreshToken.js"></script>
+    <script src="rooms.js" type="module"></script>
+</body>
+</html>

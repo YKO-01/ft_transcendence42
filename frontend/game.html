@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    .game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    /* display: none; */
+}
+
+.game #player1{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+}
+
+.game #player2{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+}
+
+.game #gameCanvas {
+    border: 2px solid #fff;
+}
+.game #scoreBoard {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+}
+.game #waitingMessage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    text-align: center;
+}
+.game #roomInfo {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+}
+.game #resetButton {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+    </style>
+</head>
+<body>
+    <div class="game">
+        <div id="players">
+            <span id="player1">player 1</span>
+            <span id="player2">player 2</span>
+        </div>
+        <div id="scoreBoard">
+            <span id="leftScore">0</span> - <span id="rightScore">0</span>
+        </div>
+        <canvas id="gameCanvas" width="800" height="400"></canvas>
+        <div id="waitingMessage">Waiting for another player...</div>
+        <div id="winnerinfo">Winer Is: <span id ="winner"></span></div>
+        <div id="roomInfo">Room: <span id="roomName"></span></div>
+        <button id="resetButton">Reset Game</button>
+
+    </div>
+    <script src="refreshToken.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>

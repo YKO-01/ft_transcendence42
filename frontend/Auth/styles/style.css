@@ -1,0 +1,30 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
+	/* user-select: none; */
+	outline: none;
+}
+
+body {
+	height: 100vh;
+	width: 100vw;
+	max-height: 100vh;
+	max-width: 100vw;
+	background-color: #020D14;
+}
+
+.signin-form-container
+{
+	flex: 4;
+}
+
+.logo {
+	flex: 1;
+}
+
+.cursor-pointer{
+	cursor: pointer;
+}
+
